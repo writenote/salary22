@@ -1,6 +1,8 @@
 <template>
   <div class="header">
 
+  <h1>Hello!</h1>
+
   </div>
 </template>
 
@@ -11,5 +13,5 @@
 </script>
 
 <style scoped>
-  
+
 </style>
