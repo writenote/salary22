@@ -1,7 +1,7 @@
 <template>
   <div class="salaryList">
     <div class="header">
-      <h3>월급</h3>
+      <h3>월급  ______________</h3>
       <!-- 월급 보여주기 -->
     </div>
     <div class="list">
@@ -23,7 +23,7 @@
         <tbody>
         <tr v-for="daily in salary" :key="daily.id">
           <td>{{ daily.name }}</td>
-          <td>{{ daily.date }}</td>
+          <td>{{ formatDate(new Date(daily.date)) }}</td>
           <td>{{ daily.startTime }}</td>
           <td>{{ daily.endTime }}</td>
           <td>{{ daily.totalTime }}</td>
@@ -62,6 +62,25 @@
           })
           .catch(e => console.log(e));
       },
+      formatDate(date) {
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1;
+        const day = date.getDate();
+        let result = year;
+
+        if(month < 10) {
+          result += '-0' + month;
+        } else {
+          result += '-' + month;
+        }
+        if(day < 10) {
+          result += '-0' + day;
+        } else {
+          result += '-' + day;
+        }
+
+        return result;
+      },
       cal(day, night) {
         let dailyWage = 0;
         dailyWage = (day*8950) + (night*12885);
@@ -89,7 +108,7 @@
 
     .header {
       width: 1000px;
-      margin: 0 auto;
+      margin: auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -97,10 +116,12 @@
 
     .list {
 
+      padding-top: 50px;
+
       table {
         margin: auto;
         font-size: 20px;
-        width: 1000px;
+        width: 1200px;
 
         tr th {
           text-align: center;
