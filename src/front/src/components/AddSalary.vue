@@ -32,6 +32,31 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
+  .addForm {
+    padding-top: 100px;
+    justify-content: center;   // 화면 중앙
+    text-align: center;
+    max-width: 500px;
+    margin: auto;
+
+    div {
+
+      .nameForm {
+
+        padding-top: 50px;
+        display: flex;   // 옆으로 나란히
+        align-items: center;   // 위아래 중앙
+
+        label {
+          min-width: 50px;
+          margin: auto;
+        }
+
+      }
+
+
+    }
+  }
 </style>
