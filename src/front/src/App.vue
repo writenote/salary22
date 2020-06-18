@@ -11,6 +11,7 @@
 <script>
   import HeaderComponent from "./components/HeaderComponent";
   import SalaryList from "./components/SalaryList";
+  import AddSalary from "./components/AddSalary";
   import EventBus from "./js/EventBus";
   import { EVENT } from "./js/Constants";
 
@@ -19,7 +20,8 @@
   const router = new VueRouter({
     mode: 'history',
     routes: [
-      { path: '/list', component: SalaryList },
+      {path: '/list', component: SalaryList},
+      {path: '/addSalary', component: AddSalary},
 
     ]
   });
@@ -40,6 +42,7 @@
     components: {
       HeaderComponent,
       SalaryList,
+      AddSalary,
 
     },
   }

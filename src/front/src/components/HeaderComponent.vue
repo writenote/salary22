@@ -7,6 +7,9 @@
       <div @click="refreshRouterView()">
         <router-link class="btn btn-primary" to="/list">급여 목록</router-link>
       </div>
+      <div @click="refreshRouterView()">
+        <router-link class="btn btn-primary" to="/addSalary">근무 시간 입력</router-link>
+      </div>
     </nav>
   </div>
 </template>
@@ -43,6 +46,10 @@
       display: flex;
       justify-content: center;
       align-items: center;
+
+      .btn {
+        margin: 5px;
+      }
     }
   }
 </style>
