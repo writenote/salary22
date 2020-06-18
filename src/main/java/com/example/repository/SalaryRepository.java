@@ -1,6 +1,5 @@
 package com.example.repository;
 
-
 import com.example.model.Salary;
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -16,18 +16,20 @@ public class Salary {
     private Integer id;
     private String name;
     private Date date;
-    @Column(name = "start_time")
     private Integer startTime;
-    @Column(name = "end_time")
     private Integer endTime;
     private Integer day;
     private Integer night;
+    private Integer totalTime;
 
     public Salary(String name, Integer startTime, Integer endTime) {
         this.date = new Date();
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.day = CalculateDay();
+        this.night = CalculateNight();
+        this.totalTime = total();
     }
 
     public Integer CalculateDay() {
@@ -70,5 +72,12 @@ public class Salary {
             night = 8;
         }
         return night;
+    }
+
+    public Integer total() {
+        totalTime = 0;
+
+        totalTime = this.day + this.night;
+        return totalTime;
     }
 }

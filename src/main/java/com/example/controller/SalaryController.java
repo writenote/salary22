@@ -3,13 +3,15 @@ package com.example.controller;
 import com.example.model.Salary;
 import com.example.repository.SalaryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/salary")
+@RequestMapping("/home")
 public class SalaryController {
 
     @Autowired
@@ -22,5 +24,14 @@ public class SalaryController {
         List<Salary> list = repository.findAll();
 
         return list;
+    }
+
+    @DeleteMapping("/salary/{id}")
+    public ResponseEntity<String> deleteRow(@PathVariable Integer id) {
+        System.out.println("Delete the Line with ID = " + id + "...");
+
+        repository.deleteById(id);
+
+        return new ResponseEntity<>("The Line has been deleted!", HttpStatus.OK);
     }
 }
