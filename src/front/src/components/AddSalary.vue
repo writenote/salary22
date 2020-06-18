@@ -9,13 +9,45 @@
                v-model="salary.name"/>
       </div>
 
+      <div class="dateTimePicker">
+        <div class="startTime">
+          <label for="startTime">시작 시간</label>
+          <datetime type="datetime" class="form-control" id="startTime"
+                    v-model="salary.startTime" placeholder="날짜 선택"
+                    value-zone="Asia/Seoul"
+          ></datetime>
+        </div>
 
+        <div class="endTime">
+          <label for="endTime">종료 시간</label>
+          <datetime type="datetime" class="form-control" id="endTime"
+                    v-model="salary.endTime" placeholder="날짜 선택"
+                    value-zone="Asia/Seoul"
+          ></datetime>
+        </div>
+      </div>
+
+      <button @click="addRow" class="btn btn-success">등록</button>
+    </div>
+
+    <div v-else>
+      <h4>근무시간이 등록되었습니다.</h4>
+      <router-link to="/list">
+        <button class="btn btn-success">목록 확인</button>
+      </router-link>
     </div>
   </div>
 </template>
 
 <script>
   import ApiSvc from "../js/ApiSvc";
+  import Vue from 'vue';
+  import Datetime from 'vue-datetime';
+  import 'vue-datetime/dist/vue-datetime.css';
+  import {Settings} from 'luxon';
+
+  Vue.use(Datetime);
+  Settings.defaultLocale = 'ko';
 
   export default {
     name: "AddSalary",
@@ -24,12 +56,32 @@
         salary: {
           id: 0,
           name: "",
-
+          startTime: "",
+          endTime: "",
         },
+        // startTime: "",
+        // endTime: "",
         submitted: false,
       }
+    },
+    methods: {
+      addRow() {
+        const requestData = {
+          name: this.salary.name,
+          startTime: this.salary.startTime,
+          endTime: this.salary.endTime
+        };
+
+        ApiSvc.post("/add", requestData)    // controller
+          .then(res => {
+            this.salary.id = res.data.id;
+          })
+          .catch(e => console.log(e));
+
+        this.submitted = true;
+      },
     }
-  }
+  };
 </script>
 
 <style lang="scss" scoped>
@@ -50,13 +102,50 @@
         align-items: center;   // 위아래 중앙
 
         label {
-          min-width: 50px;
+          min-width: 100px;
           margin: auto;
+          text-align: left;
         }
 
       }
 
+      .dateTimePicker {
 
+        .startTime {
+          padding-top: 50px;
+          display: flex;
+          align-items: center;
+
+          label {
+            min-width: 100px;
+            margin: auto;
+            text-align: left;
+          }
+        }
+
+        .endTime {
+          padding-top: 50px;
+          display: flex;
+          align-items: center;
+
+          label {
+            min-width: 100px;
+            margin: auto;
+            text-align: left;
+          }
+        }
+      }
+
+      .btn {
+        margin: 50px;
+      }
+    }
+
+    div {
+
+      .btn {
+        margin: 100px;
+      }
     }
   }
 </style>

@@ -34,4 +34,17 @@ public class SalaryController {
 
         return new ResponseEntity<>("The Line has been deleted!", HttpStatus.OK);
     }
+
+    @PostMapping("/add")
+    public Salary addRow(@RequestBody Salary salary) {
+        Salary _salary = repository.save(
+                new Salary(
+                    salary.getName(),
+                    salary.getStartTime(),
+                    salary.getEndTime()
+                )
+        );
+
+        return _salary;
+    }
 }
