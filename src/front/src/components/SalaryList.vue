@@ -27,7 +27,7 @@
           <td>{{ daily.startTime }}</td>
           <td>{{ daily.endTime }}</td>
           <td>{{ daily.totalTime }}</td>
-          <td>{{ cal(daily.day, daily.night) }}</td>
+          <td>{{ formatDailyWage(daily.dailyWage) }}</td>
           <td>
             <button @click="deleteRow(daily.id)" class="btn btn-danger">삭제</button>
           </td>
@@ -47,7 +47,6 @@
       return {
         salary: [],
         daily: null,
-
       }
     },
     mounted() {
@@ -61,6 +60,12 @@
             console.log(res.data);
           })
           .catch(e => console.log(e));
+      },
+      formatDailyWage(dailyWage) {
+        let formatDailyWage = dailyWage.toString()
+          .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+        return formatDailyWage;
       },
       formatDate(date) {
         const year = date.getFullYear();
