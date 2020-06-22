@@ -59,8 +59,6 @@
           startTime: "",
           endTime: "",
         },
-        // startTime: "",
-        // endTime: "",
         submitted: false,
       }
     },
@@ -72,7 +70,7 @@
           endTime: this.salary.endTime
         };
 
-        ApiSvc.post("/add", requestData)    // controller
+        ApiSvc.post("/add", requestData)
           .then(res => {
             this.salary.id = res.data.id;
           })
