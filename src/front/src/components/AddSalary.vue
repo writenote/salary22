@@ -15,6 +15,7 @@
           <datetime type="datetime" class="form-control" id="startTime"
                     v-model="salary.startTime" placeholder="날짜 선택"
                     value-zone="Asia/Seoul"
+                    :minute-step="60"
           ></datetime>
         </div>
 
@@ -23,6 +24,7 @@
           <datetime type="datetime" class="form-control" id="endTime"
                     v-model="salary.endTime" placeholder="날짜 선택"
                     value-zone="Asia/Seoul"
+                    :minute-step="60"
           ></datetime>
         </div>
       </div>
