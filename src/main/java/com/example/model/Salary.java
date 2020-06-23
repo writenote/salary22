@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
+import java.util.*;
 
 @Data
 @NoArgsConstructor
@@ -31,10 +31,15 @@ public class Salary {
     public Salary(String name, String startTime, String endTime) {
         this.date = new Date();
         this.name = name;
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.startTime = formatTime(startTime);
+        this.endTime = formatTime(endTime);
         this.totalTime = calTotalTime(startTime, endTime);
-        this.dailyWage = calDailyWage(startTime, endTime);
+        this.dailyWage = calWage(startTime, endTime);
+    }
+
+    public String formatTime(String time) {
+        time = time.substring(0, 10) + " " + time.substring(11, 19);
+        return time;
     }
 
     public Integer calTotalTime(String startTime, String endTime) {
@@ -47,6 +52,51 @@ public class Salary {
         System.out.println(totalTime);
 
         return totalTime;
+    }
+
+    public Integer calWage(String startTime, String endTime) {
+        dailyWage = 0;
+
+        startTime = startTime.substring(11, 13);
+        endTime = endTime.substring(11, 13);
+
+        Integer startWorkTime = Integer.parseInt(startTime);
+        Integer endWorkTime = Integer.parseInt(endTime);
+
+        System.out.println("startWorkTime: " + startWorkTime);
+        System.out.println("endWorkTime: " + endWorkTime);
+
+        List<Boolean> timeList = new ArrayList<>(Arrays.asList(new Boolean[24]));  // index 0~23
+        Collections.fill(timeList, Boolean.FALSE);
+
+        if(startWorkTime < endWorkTime) {
+            for(int i=startWorkTime; i<endWorkTime; i++) {
+                timeList.set(i, Boolean.TRUE);
+            }
+        } else {
+            for(int i=startWorkTime; i<=23; i++) {
+                timeList.set(i, Boolean.TRUE);
+            }
+            for(int i=0; i<endWorkTime; i++) {
+                timeList.set(i, Boolean.TRUE);
+            }
+        }
+
+        Map<Integer, Integer> timeMap = new HashMap<>();
+        for(int i=0; i<=23; i++) {
+            if(timeList.get(i) == Boolean.TRUE) {
+                if(i>=6 && i<=21) {
+                    timeMap.put(i, 8950);
+                } else {
+                    timeMap.put(i, 12885);
+                }
+            }
+        }
+
+        dailyWage = timeMap.values().stream().mapToInt(i -> i).sum();   // 1번
+        //dailyWage = timeMap.values().stream().reduce(0, Integer::sum);   //2번
+
+        return dailyWage;
     }
 
     public Integer calDailyWage(String startTime, String endTime) {
@@ -101,45 +151,42 @@ public class Salary {
         return dailyWage;
     }
 
-//    public Integer CalculateDay() {
-//        day = 0;
-//
-//        if(startTime >= 6 && endTime <= 22) {
-//            day = endTime - startTime;
-//        }
-//        if(endTime <= 22) {
-//            day = endTime - 6;
-//        }
-//        if(startTime >= 6) {
-//            day = 22 - startTime;
-//        }
-//        if(startTime < 6 && endTime > 22) {
-//            day = 16;
-//        }
-//        if(startTime < 22 && endTime > 6) {
-//            day = (22 - startTime) + (endTime - 6);
-//        }
-//        return day;
-//    }
-//
-//    public Integer CalculateNight() {
-//        night = 0;
-//
-//        if(endTime <= 22) {
-//            night = 6 - startTime;
-//        }
-//        if(startTime >= 6) {
-//            night = endTime - 22;
-//        }
-//        if(startTime >= 22 && endTime <= 6) {
-//            night = (24 - startTime) + endTime;
-//        }
-//        if(startTime < 6 && endTime > 22) {
-//            night = (6 - startTime) + (endTime - 22);
-//        }
-//        if(startTime < 22 && endTime > 6) {
-//            night = 8;
-//        }
-//        return night;
-//    }
+    public Integer CalculateWage(String startTime, String endTime) {
+        startTime = startTime.substring(11, 13);
+        endTime = endTime.substring(11, 13);
+
+        Integer startWorkTime = Integer.parseInt(startTime);
+        Integer endWorkTime = Integer.parseInt(endTime);
+
+        System.out.println("startWorkTime: " + startWorkTime);
+        System.out.println("endWorkTime: " + endWorkTime);
+
+        day = 0;
+        night = 0;
+
+        if(startWorkTime >= 6 && endWorkTime <= 22 && startWorkTime < endWorkTime) {
+            day = endWorkTime - startWorkTime;
+        } else if(endWorkTime <= 22) {
+            day = endWorkTime - 6;
+            night = 6 - startWorkTime;
+        } else if(startWorkTime >= 6) {
+            day = 22 - startWorkTime;
+            night = endWorkTime - 22;
+        } else if(startWorkTime < 6 && endWorkTime > 22) {
+            day = 16;
+            night = (6 - startWorkTime) + (endWorkTime - 22);
+        } else if(startWorkTime < 22 && endWorkTime > 6 && startWorkTime > endWorkTime) {
+            day = (22 - startWorkTime) + (endWorkTime - 6);
+            night = 8;
+        } else if(startWorkTime >= 22 && endWorkTime <= 6) {
+            night = (24 - startWorkTime) + endWorkTime;
+        }
+
+        System.out.println("day: " + day);
+        System.out.println("night: " + night);
+
+        dailyWage = (day * 8950) + (night * 12885);
+
+        return dailyWage;
+    }
 }
