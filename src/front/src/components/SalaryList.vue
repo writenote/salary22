@@ -1,12 +1,9 @@
 <template>
   <div class="salaryList">
     <div class="header">
-      <h3>월급  ______________</h3>
-      <!-- 월급 보여주기 -->
+      <h3>일급 총 누적액 {{ dailyTotal }}원</h3>
     </div>
     <div class="list">
-      <!-- 일요일 이후에 주급, 일급 보여주기 -->
-
       <table>
         <thead>
         <tr>
@@ -14,8 +11,9 @@
           <th class="startTime">시작 시간</th>
           <th class="endTime">종료 시간</th>
           <th class="totalTime">근무 시간</th>
-          <th class="daily">일급</th>
-          <th class="edit">시급</th>
+          <th class="hourlyWage">시급</th>
+          <th class="dailyWage">일급</th>
+          <th class="edit">편집</th>
         </tr>
         </thead>
 
@@ -25,8 +23,8 @@
           <td>{{ daily.startTime }}</td>
           <td>{{ daily.endTime }}</td>
           <td>{{ daily.totalTime }}시간</td>
-          <td>{{ formatDailyWage(daily.dailyWage) }}원</td>
-          <td>{{ daily.timepay }}원</td>
+          <td>{{ formatWage(daily.hourlyWage) }}원</td>
+          <td>{{ formatWage(daily.dailyWage) }}원</td>
           <td>
             <button @click="deleteRow(daily.id)" class="btn btn-danger">삭제</button>
           </td>
@@ -46,6 +44,7 @@
       return {
         salary: [],
         daily: null,
+        dailyTotal: 0,
       }
     },
     mounted() {
@@ -56,15 +55,20 @@
         ApiSvc.get("/list")
           .then(res => {
             this.salary = res.data;
+
+            this.dailyTotal = res.data
+              .map(obj => obj.dailyWage)
+              .reduce((d1, d2) => d1 + d2, 0)
+              .toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             console.log(res.data);
           })
           .catch(e => console.log(e));
       },
-      formatDailyWage(dailyWage) {
-        let formatDailyWage = dailyWage.toString()
+      formatWage(wage) {
+        let formatWage = wage.toString()
           .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
-        return formatDailyWage;
+        return formatWage;
       },
       formatDate(date) {
         const year = date.getFullYear();
@@ -123,10 +127,12 @@
 
         tr th {
           text-align: center;
+          height: 50px;
         }
 
         tr td {
           text-align: center;
+          height: 50px;
         }
       }
     }

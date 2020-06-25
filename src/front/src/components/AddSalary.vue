@@ -3,10 +3,10 @@
     <div v-if="!submitted">
       <h3>근무 시간 입력하기</h3>
 
-      <div class="timepayForm">
-        <label for="timepay">시급 입력</label>
-        <input type="text" value="8950" class="form-control" id="timepay"
-               v-model="salary.timepay"/>
+      <div class="nameForm">
+        <label for="hourlyWage">시급</label>
+        <input type="text" class="form-control" placeholder="최저시급 8,590원" id="hourlyWage"
+               v-model="salary.hourlyWage"/>
       </div>
 
       <div class="dateTimePicker">
@@ -57,7 +57,7 @@
       return {
         salary: {
           id: 0,
-          timepay: 8590,
+          hourlyWage: "",
           startTime: "",
           endTime: "",
         },
@@ -67,7 +67,7 @@
     methods: {
       addRow() {
         const requestData = {
-          timepay: this.salary.timepay,
+          hourlyWage: this.salary.hourlyWage,
           startTime: this.salary.startTime,
           endTime: this.salary.endTime
         };
@@ -95,7 +95,7 @@
 
     div {
 
-      .timepayForm {
+      .nameForm {
 
         padding-top: 50px;
         display: flex;   // 옆으로 나란히
