@@ -33,8 +33,8 @@ public class Salary {
     }
 
     public String formatTime(String time) {
-        time = time.substring(0, 10) + " " + time.substring(11, 19);
-        return time;
+        String formatTime = time.substring(0, 10) + " " + time.substring(11, 19);
+        return formatTime;
     }
 
     public Integer defaultHourlyWage(Integer hourlyWage) {
@@ -97,7 +97,7 @@ public class Salary {
                 }
             }
         }
-        //dailyWage = timeMap.values().stream().mapToInt(i -> i).sum();   // 1번
+
         dailyWage = timeMap.values().stream().reduce(0, Integer::sum);   //2번
 
         return dailyWage;
