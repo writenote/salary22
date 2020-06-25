@@ -2,6 +2,9 @@
   <div class="salaryList">
     <div class="header">
       <h3>일급 총 누적액 {{ dailyTotal }}원</h3>
+      <div @click="refreshRouterView()">
+        <router-link class="btn btn-primary" to="/addSalary">근무 시간 입력</router-link>
+      </div>
     </div>
     <div class="list">
       <table>
@@ -37,6 +40,8 @@
 
 <script>
   import ApiSvc from "../js/ApiSvc";
+  import EventBus from "../js/EventBus";
+  import {EVENT} from "../js/Constants";
 
   export default {
     name: "SalaryList",
@@ -51,6 +56,9 @@
       this.getDailyWages();
     },
     methods: {
+      refreshRouterView() {
+        EventBus.$emit(EVENT.REFRESH_ROUTER_VIEW);
+      },
       getDailyWages() {
         ApiSvc.get("/list")
           .then(res => {
