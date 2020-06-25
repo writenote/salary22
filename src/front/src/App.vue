@@ -17,6 +17,10 @@
   import HeaderComponent from "./components/HeaderComponent";
   import SalaryList from "./components/SalaryList";
   import AddSalary from "./components/AddSalary";
+  import DailyPay from "./components/pay/DailyPay";
+  import WeeklyPay from "./components/pay/WeeklyPay";
+  import MonthlyPay from "./components/pay/MonthlyPay";
+  import HolidayPay from "./components/pay/HolidayPay";
   import EventBus from "./js/EventBus";
   import { EVENT } from "./js/Constants";
 
@@ -28,7 +32,10 @@
       {path: '/headerComponent', component: HeaderComponent},
       {path: '/list', component: SalaryList},
       {path: '/addSalary', component: AddSalary},
-
+      {path: '/daily', component: DailyPay},
+      {path: '/weekly', component: WeeklyPay},
+      {path: '/monthly', component: MonthlyPay},
+      {path: '/holiday', component: HolidayPay},
     ]
   });
 
@@ -49,7 +56,10 @@
       HeaderComponent,
       SalaryList,
       AddSalary,
-
+      DailyPay,
+      WeeklyPay,
+      MonthlyPay,
+      HolidayPay
     },
   }
 </script>

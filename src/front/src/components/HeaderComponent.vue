@@ -7,7 +7,18 @@
       <div @click="refreshRouterView()">
         <router-link class="btn btn-primary" to="/list">매일 입력하기</router-link>
       </div>
-
+      <div @click="refreshRouterView()">
+        <router-link class="btn btn-primary" to="/daily">일급 계산하기</router-link>
+      </div>
+      <div @click="refreshRouterView()">
+        <router-link class="btn btn-primary" to="/weekly">주급 계산하기</router-link>
+      </div>
+      <div @click="refreshRouterView()">
+        <router-link class="btn btn-primary" to="/monthly">월급 계산하기</router-link>
+      </div>
+      <div @click="refreshRouterView()">
+        <router-link class="btn btn-primary" to="/holiday">주휴수당 계산하기</router-link>
+      </div>
     </nav>
   </div>
 </template>
