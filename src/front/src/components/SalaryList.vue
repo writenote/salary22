@@ -10,24 +10,23 @@
       <table>
         <thead>
         <tr>
-          <th class="name">이름</th>
           <th class="date">날짜</th>
           <th class="startTime">시작 시간</th>
           <th class="endTime">종료 시간</th>
           <th class="totalTime">근무 시간</th>
           <th class="daily">일급</th>
-          <th class="edit">편집</th>
+          <th class="edit">시급</th>
         </tr>
         </thead>
 
         <tbody>
         <tr v-for="daily in salary" :key="daily.id">
-          <td>{{ daily.name }}</td>
           <td>{{ formatDate(new Date(daily.date)) }}</td>
           <td>{{ daily.startTime }}</td>
           <td>{{ daily.endTime }}</td>
-          <td>{{ daily.totalTime }}</td>
-          <td>{{ formatDailyWage(daily.dailyWage) }}</td>
+          <td>{{ daily.totalTime }}시간</td>
+          <td>{{ formatDailyWage(daily.dailyWage) }}원</td>
+          <td>{{ daily.timepay }}원</td>
           <td>
             <button @click="deleteRow(daily.id)" class="btn btn-danger">삭제</button>
           </td>
@@ -85,12 +84,6 @@
         }
 
         return result;
-      },
-      cal(day, night) {
-        let dailyWage = 0;
-        dailyWage = (day*8950) + (night*12885);
-
-        return dailyWage;
       },
       deleteRow(id) {
         ApiSvc.delete(`/salary/${id}`)

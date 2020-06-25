@@ -2,10 +2,16 @@ package com.example.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.repository.query.Param;
 
 import javax.persistence.*;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAdjusters;
 import java.util.*;
 
 @Data
@@ -16,20 +22,18 @@ public class Salary {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private String name;
+    private Integer timepay;
     private Date date;
     private String startTime;
     private String endTime;
     private LocalDateTime startWork;
     private LocalDateTime endWork;
-    private Integer day;
-    private Integer night;
     private Integer totalTime;
     private Integer dailyWage;
 
-    public Salary(String name, String startTime, String endTime) {
+    public Salary(Integer timepay, String startTime, String endTime) {
         this.date = new Date();
-        this.name = name;
+        this.timepay = timepay;
         this.startTime = formatTime(startTime);
         this.endTime = formatTime(endTime);
         this.totalTime = calTotalTime(startTime, endTime);
@@ -85,9 +89,9 @@ public class Salary {
         for(int i=0; i<=23; i++) {
             if(timeList.get(i) == Boolean.TRUE) {
                 if(i>=6 && i<=21) {
-                    timeMap.put(i, 8950);   // 주간 기본 시급
+                    timeMap.put(i, timepay);   // 주간 기본 시급
                 } else {
-                    timeMap.put(i, 12885);   // 야간 수당
+                    timeMap.put(i, (int)(timepay*1.5));   // 야간 수당
                 }
             }
         }
@@ -97,4 +101,7 @@ public class Salary {
 
         return dailyWage;
     }
+
+
+
 }

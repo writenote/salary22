@@ -10,6 +10,9 @@
       <div @click="refreshRouterView()">
         <router-link class="btn btn-primary" to="/addSalary">근무 시간 입력</router-link>
       </div>
+      <div @click="refreshRouterView()">
+        <router-link class="btn btn-primary" to="/dailypay">일급 계산하기</router-link>
+      </div>
     </nav>
   </div>
 </template>

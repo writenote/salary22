@@ -12,6 +12,7 @@
   import HeaderComponent from "./components/HeaderComponent";
   import SalaryList from "./components/SalaryList";
   import AddSalary from "./components/AddSalary";
+  import dailypay from "./components/dailypay";
   import EventBus from "./js/EventBus";
   import { EVENT } from "./js/Constants";
 
@@ -22,6 +23,7 @@
     routes: [
       {path: '/list', component: SalaryList},
       {path: '/addSalary', component: AddSalary},
+      {path: '/dailypay', component: dailypay}
 
     ]
   });
@@ -43,6 +45,7 @@
       HeaderComponent,
       SalaryList,
       AddSalary,
+      dailypay,
 
     },
   }

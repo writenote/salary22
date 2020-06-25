@@ -7,6 +7,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -39,12 +43,15 @@ public class SalaryController {
     public Salary addRow(@RequestBody Salary salary) {
         Salary _salary = repository.save(
                 new Salary(
-                    salary.getName(),
-                    salary.getStartTime(),
-                    salary.getEndTime()
+                        salary.getTimepay(),
+                        salary.getStartTime(),
+                        salary.getEndTime()
                 )
         );
 
         return _salary;
     }
+
+
+
 }
