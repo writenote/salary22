@@ -1,10 +1,5 @@
 <template>
   <div id="app">
-    <!-- 홈 화면 만들기 -->
-<!--    <div>-->
-<!--      <router-link class="btn btn-primary" to="/headerComponent">계산하러 가기</router-link>-->
-<!--    </div>    -->
-
     <header-component/>
 
     <transition name="component-fade" mode="out-in">
@@ -25,7 +20,6 @@
   const router = new VueRouter({
     mode: 'history',
     routes: [
-      {path: '/headerComponent', component: HeaderComponent},
       {path: '/list', component: SalaryList},
       {path: '/addSalary', component: AddSalary},
 
