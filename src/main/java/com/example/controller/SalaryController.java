@@ -22,6 +22,7 @@ public class SalaryController {
         System.out.println("Get a List...");
 
         List<Salary> list = repository.findAll();
+        list.sort((a1, a2) -> a2.getId().compareTo(a1.getId()));
 
         return list;
     }
@@ -39,7 +40,7 @@ public class SalaryController {
     public Salary addRow(@RequestBody Salary salary) {
         Salary _salary = repository.save(
                 new Salary(
-                    salary.getName(),
+                    salary.getHourlyWage(),
                     salary.getStartTime(),
                     salary.getEndTime()
                 )

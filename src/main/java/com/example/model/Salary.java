@@ -16,24 +16,20 @@ public class Salary {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private String name;
-    private Date date;
-    private String startTime;
+    private Date date;   // 2020-06-23T15:00:00.000+00:00
+    private Integer hourlyWage;
+    private String startTime;   // 2020-06-24T12:00:00.000+09:00
     private String endTime;
-    private LocalDateTime startWork;
-    private LocalDateTime endWork;
-    private Integer day;
-    private Integer night;
     private Integer totalTime;
     private Integer dailyWage;
 
-    public Salary(String name, String startTime, String endTime) {
+    public Salary(Integer hourlyWage, String startTime, String endTime) {
         this.date = new Date();
-        this.name = name;
+        this.hourlyWage = defaultHourlyWage(hourlyWage);
         this.startTime = formatTime(startTime);
         this.endTime = formatTime(endTime);
         this.totalTime = calTotalTime(startTime, endTime);
-        this.dailyWage = calDailyWage(startTime, endTime);
+        this.dailyWage = calDailyWage(hourlyWage, startTime, endTime);
     }
 
     public String formatTime(String time) {
@@ -41,42 +37,52 @@ public class Salary {
         return time;
     }
 
-    public Integer calTotalTime(String startTime, String endTime) {
-        startTime = startTime.substring(0, 23);
-        endTime = endTime.substring(0, 23);
-        this.startWork = LocalDateTime.parse(startTime);
-        this.endWork = LocalDateTime.parse(endTime);
+    public Integer defaultHourlyWage(Integer hourlyWage) {
+        Integer wage;
+        if(hourlyWage == null) {
+            wage = 8590;
+        } else {
+            wage = hourlyWage;
+        }
 
-        totalTime = Math.toIntExact(ChronoUnit.HOURS.between(this.startWork, this.endWork));
-        System.out.println(totalTime);
+        return wage;
+    }
+
+    public Integer calTotalTime(String startTime, String endTime) {
+        String formatStartTime = startTime.substring(0, 23);
+        String formatEndTime = endTime.substring(0, 23);
+        LocalDateTime workStartTime = LocalDateTime.parse(formatStartTime);  // 2020-06-24T12:00
+        LocalDateTime workEndTime = LocalDateTime.parse(formatEndTime);
+
+        totalTime = Math.toIntExact(ChronoUnit.HOURS.between(workStartTime, workEndTime));
 
         return totalTime;
     }
 
-    public Integer calDailyWage(String startTime, String endTime) {
+    public Integer calDailyWage(Integer hourlyWage, String startTime, String endTime) {
         dailyWage = 0;
 
-        startTime = startTime.substring(11, 13);   // 21
-        endTime = endTime.substring(11, 13);   // 09
+        if(hourlyWage == null) {
+            hourlyWage = 8590;
+        }
 
-        Integer startWorkTime = Integer.parseInt(startTime);   // 21
-        Integer endWorkTime = Integer.parseInt(endTime);   // 9
-
-        System.out.println("startWorkTime: " + startWorkTime);
-        System.out.println("endWorkTime: " + endWorkTime);
+        String formatStartTime = startTime.substring(11, 13);   // 09
+        String formatEndTime = endTime.substring(11, 13);   // 12
+        Integer workStartTime = Integer.parseInt(formatStartTime);   // 9
+        Integer workEndTime = Integer.parseInt(formatEndTime);   // 12
 
         List<Boolean> timeList = new ArrayList<>(Arrays.asList(new Boolean[24]));  // index 0~23
         Collections.fill(timeList, Boolean.FALSE);
 
-        if(startWorkTime < endWorkTime) {   // 근무 시간이 하루 안에 시작 및 종료
-            for(int i=startWorkTime; i<endWorkTime; i++) {
+        if(workStartTime < workEndTime) {   // 근무 시간이 하루 안에 시작 및 종료
+            for(int i=workStartTime; i<workEndTime; i++) {
                 timeList.set(i, Boolean.TRUE);
             }
         } else {   // 근무 시간이 자정을 넘어감
-            for(int i=startWorkTime; i<=23; i++) {
+            for(int i=workStartTime; i<=23; i++) {
                 timeList.set(i, Boolean.TRUE);
             }
-            for(int i=0; i<endWorkTime; i++) {
+            for(int i=0; i<workEndTime; i++) {
                 timeList.set(i, Boolean.TRUE);
             }
         }
@@ -84,14 +90,13 @@ public class Salary {
         Map<Integer, Integer> timeMap = new HashMap<>();
         for(int i=0; i<=23; i++) {
             if(timeList.get(i) == Boolean.TRUE) {
-                if(i>=6 && i<=21) {
-                    timeMap.put(i, 8950);   // 주간 기본 시급
+                if(i>=6 && i<=21) {   //  && hourlyWage!=null
+                    timeMap.put(i, hourlyWage);   // 주간 기본 시급
                 } else {
-                    timeMap.put(i, 12885);   // 야간 수당
+                    timeMap.put(i, (int)(hourlyWage*1.5));   // 야간 수당
                 }
             }
         }
-
         //dailyWage = timeMap.values().stream().mapToInt(i -> i).sum();   // 1번
         dailyWage = timeMap.values().stream().reduce(0, Integer::sum);   //2번
 

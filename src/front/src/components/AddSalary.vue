@@ -4,9 +4,9 @@
       <h3>근무 시간 입력하기</h3>
 
       <div class="nameForm">
-        <label for="name">이름</label>
-        <input type="text" class="form-control" placeholder="이름 입력" id="name"
-               v-model="salary.name"/>
+        <label for="hourlyWage">시급</label>
+        <input type="text" class="form-control" placeholder="최저시급 8,590원" id="hourlyWage"
+               v-model="salary.hourlyWage"/>
       </div>
 
       <div class="dateTimePicker">
@@ -57,7 +57,7 @@
       return {
         salary: {
           id: 0,
-          name: "",
+          hourlyWage: "",
           startTime: "",
           endTime: "",
         },
@@ -67,7 +67,7 @@
     methods: {
       addRow() {
         const requestData = {
-          name: this.salary.name,
+          hourlyWage: this.salary.hourlyWage,
           startTime: this.salary.startTime,
           endTime: this.salary.endTime
         };
