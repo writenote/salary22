@@ -129,7 +129,8 @@
       padding-top: 50px;
 
       h5 {
-        margin-left: 400px;
+        margin: auto;
+        width: 1200px;
       }
 
       table {
