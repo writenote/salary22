@@ -53,8 +53,8 @@
     <div class="resultArea" v-show="result">
       <h5>결과를 여기서 확인 {{ dailyPay }}원</h5>
       <h5>일주일 총 근무시간은 하루 {{ dailyTotalTime }}시간 X {{ days }}일로 총 {{ weeklyTotalTime }}시간입니다.</h5>
-      <h5> - 기본 수당: 일급 {{ dailyPay }} X {{ days }} = {{ basicDailyPay }}원</h5>
-      <h5> - 주휴 수당: 일급 {{ holidayPay }}원</h5>
+      <h5> - 기본 수당: 일급 {{ dailyPay }}원 X {{ days }}시간 = {{ basicDailyPay }}원</h5>
+      <h5> - 주휴 수당: {{ holidayPay }}원</h5>
       <h5>총 주급은 {{ weeklyPay }}원입니다.</h5>
     </div>
   </div>
@@ -99,26 +99,26 @@
         const workStartTime = parseInt(formatStartTime);   // 9
         const workEndTime = parseInt(formatEndTime);   // 12
 
-        var timeList = new Array(24);
-        for(var i=0; i<=23; i++) {
+        let timeList = new Array(24);
+        for(let i=0; i<=23; i++) {
           timeList[i] = Boolean(false);
         }
 
         if(workStartTime < workEndTime) {   // 근무 시간이 하루 안에 시작 및 종료
-          for(var i=workStartTime; i<workEndTime; i++) {
+          for(let i=workStartTime; i<workEndTime; i++) {
             timeList[i] = Boolean(true);
           }
         } else {   // 근무 시간이 자정을 넘어감
-          for(var i=workStartTime; i<=23; i++) {
+          for(let i=workStartTime; i<=23; i++) {
             timeList[i] = Boolean(true);
           }
-          for(var i=0; i<workEndTime; i++) {
+          for(let i=0; i<workEndTime; i++) {
             timeList[i] = Boolean(true);
           }
         }
 
-        var timeMap = new Map();
-        for(var i=0; i<=23; i++) {
+        let timeMap = new Map();
+        for(let i=0; i<=23; i++) {
           if(timeList[i] == Boolean(true)) {
             this.dailyTotalTime++;
             if(i>=6 && i<=21) {
@@ -129,7 +129,7 @@
           }
         }
 
-        var sum=0;
+        let sum=0;
         timeMap.forEach(function (value) {
           sum += value;
         });
@@ -142,13 +142,25 @@
         } else if(this.weeklyTotalTime >= 40) {
           this.holidayPay = 8 * hourlyWage;
         }
+
         this.weeklyPay = this.basicDailyPay + this.holidayPay;
         this.dailyPay = sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         this.basicDailyPay = this.basicDailyPay.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        this.weeklyPay = this.weeklyPay.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         this.holidayPay = this.holidayPay.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        this.weeklyPay = this.weeklyPay.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        // this.formatPay(this.dailyPay);
+        // this.formatPay(this.basicDailyPay);
+        // this.formatPay(this.holidayPay);
+        // this.formatPay(this.weeklyPay);
+
         this.result = true;
       },
+      formatPay(pay) {
+        pay = pay.toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+        return pay;
+      }
     }
   }
 </script>
@@ -229,9 +241,7 @@
     }
 
     .btnArea {
-      padding-top: 50px;
       display: flex;
-
       width: 100px;
       justify-content: center;
       font-size: 18px;
