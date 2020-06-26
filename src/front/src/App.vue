@@ -23,8 +23,14 @@
   import HolidayPay from "./components/pay/HolidayPay";
   import EventBus from "./js/EventBus";
   import { EVENT } from "./js/Constants";
-
+  import Vue from "vue";
+  import Datetime from 'vue-datetime';
+  import 'vue-datetime/dist/vue-datetime.css';
+  import {Settings} from 'luxon';
   import VueRouter from 'vue-router';
+
+  Vue.use(Datetime);
+  Settings.defaultLocale = 'ko';
 
   const router = new VueRouter({
     mode: 'history',
