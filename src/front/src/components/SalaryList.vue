@@ -7,6 +7,7 @@
       </div>
     </div>
     <div class="list">
+      <h5><u>오후 10시부터 오전 6시 사이에 근무한 경우에는 시급 * 1.5배로 야간 수당이 계산됩니다.</u></h5>
       <table>
         <thead>
         <tr>
@@ -125,8 +126,11 @@
     }
 
     .list {
-
       padding-top: 50px;
+
+      h5 {
+        margin-left: 400px;
+      }
 
       table {
         margin: auto;
