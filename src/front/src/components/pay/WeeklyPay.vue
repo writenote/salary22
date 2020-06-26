@@ -6,14 +6,16 @@
     <div class="inputForm">
       <div class="hourlyWageForm">
         <label for="hourlyWage">시급</label>
-        <input type="text" class="form-control" placeholder="최저시급 8,590원" id="hourlyWage"/> <!--v-model="salary.hourlyWage"-->
+        <input type="text" class="form-control" placeholder="최저시급 8,590원" id="hourlyWage"
+               v-model="hourlyWage"/>
       </div>
 
       <div class="startTime">
         <label for="startTime">시작 시간</label>
         <datetime type="time" id="startTime" placeholder="시간 선택"
                   value-zone="Asia/Seoul"
-                  :minute-step="60"> <!--v-model="time"-->
+                  :minute-step="60"
+                  v-model="startTime">
         </datetime>
       </div>
 
@@ -21,15 +23,17 @@
         <label for="endTime">종료 시간</label>
         <datetime type="time" id="endTime" placeholder="시간 선택"
                   value-zone="Asia/Seoul"
-                  :minute-step="60"> <!--v-model="time"-->
+                  :minute-step="60"
+                  v-model="endTime">
         </datetime>
       </div>
 
       <div class="workingDays">
-        <label for="endTime">한 주 근무 일수</label>
+        <label>한 주 근무 일수</label>
         <b-dropdown
           id="workingDays" class="m-2" required
           :text="selectedDays"
+          v-model="days"
         >
           <b-dropdown-item
             v-for="days in daysList" :key="days.id"
@@ -42,7 +46,12 @@
     </div>
 
     <div class="btnArea">
-      <button @click="calWeeklyPay()" class="btn btn-success">계산하기</button>
+      <button @click="calWeeklyPay(hourlyWage, startTime, endTime, days)" class="btn btn-success">계산하기</button>
+    </div>
+
+
+    <div class="resultArea" v-show="result">
+      <h5>결과를 여기서 확인 {{ dailyPay }}원</h5>
     </div>
   </div>
 </template>
@@ -52,9 +61,13 @@
     name: "WeeklyPay",
     data() {
       return {
-        weeklyPay: {
-          days: "",
-        },
+        result: false,
+        hourlyWage: null,
+        startTime: "",
+        endTime: "",
+        days: "",
+        dailyPay: 0,
+        weeklyPay: 0,
         selectedDays: '근무 일수 선택',
         daysList: ['1', '2', '3', '4', '5', '6', '7']
       }
@@ -62,13 +75,59 @@
     methods: {
       selectDays(selectedItem) {
         this.selectedDays = selectedItem;
-        this.weeklyPay.days = this.selectedDays;
+        this.days = this.selectedDays;
       },
-      calWeeklyPay() {
+      calWeeklyPay(hourlyWage, startTime, endTime, days) {
 
+        if(hourlyWage == null) {
+          hourlyWage = 8590;
+        } else {
+          hourlyWage = parseInt(hourlyWage);
+        }
+
+        const formatStartTime = startTime.substring(11, 13);   // 2020-06-26T09:00:00.000+09:00 -> 09
+        const formatEndTime = endTime.substring(11, 13);   // 12
+
+        const workStartTime = parseInt(formatStartTime);   // 9
+        const workEndTime = parseInt(formatEndTime);   // 12
+
+        var timeList = new Array(24);
+        for(var i=0; i<=23; i++) {
+          timeList[i] = Boolean(false);
+        }
+
+        if(workStartTime < workEndTime) {   // 근무 시간이 하루 안에 시작 및 종료
+          for(var i=workStartTime; i<workEndTime; i++) {
+            timeList[i] = Boolean(true);
+          }
+        } else {   // 근무 시간이 자정을 넘어감
+          for(var i=workStartTime; i<=23; i++) {
+            timeList[i] = Boolean(true);
+          }
+          for(var i=0; i<workEndTime; i++) {
+            timeList[i] = Boolean(true);
+          }
+        }
+
+        var timeMap = new Map();
+        for(var i=0; i<=23; i++) {
+          if(timeList[i] == Boolean(true)) {
+            if(i>=6 && i<=21) {
+              timeMap.set(i, hourlyWage);   // 주간 기본 시급
+            } else {
+              timeMap.set(i, (hourlyWage*1.5));   // 야간 수당
+            }
+          }
+        }
+
+        var sum=0;
+        timeMap.forEach(function (value) {
+          sum += value;
+        });
+        this.dailyPay = sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");;
+        this.result = true;
       },
     }
-
   }
 </script>
 
@@ -155,6 +214,14 @@
       justify-content: center;
       font-size: 18px;
       margin: 0 auto;
+    }
+
+    .resultArea {
+      width: 1000px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
   }
 </style>
