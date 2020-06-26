@@ -3,7 +3,7 @@
     <div v-if="!submitted">
       <h3>근무 시간 입력하기</h3>
 
-      <div class="hourlyWageForm">
+      <div class="nameForm">
         <label for="hourlyWage">시급</label>
         <input type="text" class="form-control" placeholder="최저시급 8,590원" id="hourlyWage"
                v-model="salary.hourlyWage"/>
@@ -95,7 +95,7 @@
 
     div {
 
-      .hourlyWageForm {
+      .nameForm {
 
         padding-top: 50px;
         display: flex;   // 옆으로 나란히
