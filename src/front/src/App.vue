@@ -1,15 +1,25 @@
 <template>
   <div id="app">
     <!-- 홈 화면 만들기 -->
-<!--    <div>-->
-<!--      <router-link class="btn btn-primary" to="/headerComponent">계산하러 가기</router-link>-->
-<!--    </div>    -->
+    <div class="home" v-if="home">
+      <div class="imageArea" onload="showImage()">
+        <img id="introImg" border="0">
+        <div class="empty"></div>
+        <button @click="goMenu()" class="btn btn-primary">계산하러 가기</button>
+      </div>
 
-    <header-component/>
+      <div class="intro">
 
-    <transition name="component-fade" mode="out-in">
-      <router-view :key="key"/>
-    </transition>
+      </div>
+    </div>
+
+    <div v-else>
+      <header-component/>
+
+      <transition name="component-fade" mode="out-in">
+        <router-view :key="key"/>
+      </transition>
+    </div>
   </div>
 </template>
 
@@ -50,6 +60,7 @@
     data () {
       return {
         key: 0,
+        home: true,
       }
     },
     created() {
@@ -67,6 +78,25 @@
       MonthlyPay,
       HolidayPay
     },
+    methods: {
+      goMenu() {
+        this.home = false;
+      },
+      showImage() {
+        var imgArray = new Array();
+        imgArray[0] = "../../front/src/assets/file.jpg";
+        imgArray[1] = "../../front/src/assets/document.jpg";
+        imgArray[2] = "../../front/src/assets/money.jpg";
+        imgArray[3] = "../../front/src/assets/number.jpg";
+
+
+        var imgNum = Math.round(Math.random() * 3);
+        var objImg = document.getElementById("introImg");
+        objImg.src = imgArray[imgNum];
+
+        setTimeout("showImage()", 200);
+      }
+    }
   }
 </script>
 
@@ -74,6 +104,32 @@
 
   #app {
     height: 900px;
+
+    .home {
+
+      .imageArea {
+        min-width: 1000px;
+        height: 600px;
+        //background-image: url("../../front/src/assets/file.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+
+        .empty {
+          height: 420px;
+        }
+
+        .btn {
+          display: flex;
+          width: 185px;
+          text-align: center;
+          font-size: 25px;
+          margin: auto;
+          background-color: transparent;
+          border:2px white solid;
+        }
+      }
+    }
   }
 
   .component-fade-leave-active {
