@@ -2,8 +2,12 @@
   <div class="salaryList">
     <div class="header">
       <h3>일급 총 누적액 {{ dailyTotal }}원</h3>
+      <div @click="refreshRouterView()">
+        <router-link class="btn btn-primary" to="/addSalary">근무 시간 입력</router-link>
+      </div>
     </div>
     <div class="list">
+      <h5><u>오후 10시부터 오전 6시 사이에 근무한 경우에는 시급 * 1.5배로 야간 수당이 계산됩니다.</u></h5>
       <table>
         <thead>
         <tr>
@@ -37,6 +41,8 @@
 
 <script>
   import ApiSvc from "../js/ApiSvc";
+  import EventBus from "../js/EventBus";
+  import {EVENT} from "../js/Constants";
 
   export default {
     name: "SalaryList",
@@ -51,6 +57,9 @@
       this.getDailyWages();
     },
     methods: {
+      refreshRouterView() {
+        EventBus.$emit(EVENT.REFRESH_ROUTER_VIEW);
+      },
       getDailyWages() {
         ApiSvc.get("/list")
           .then(res => {
@@ -117,8 +126,11 @@
     }
 
     .list {
-
       padding-top: 50px;
+
+      h5 {
+        margin-left: 400px;
+      }
 
       table {
         margin: auto;
@@ -137,5 +149,4 @@
       }
     }
   }
-
 </style>

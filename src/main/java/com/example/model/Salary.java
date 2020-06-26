@@ -16,25 +16,26 @@ public class Salary {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private Date date;   // 2020-06-23T15:00:00.000+00:00
+    private Date date;   // 2020-06-24T15:00:00.000+00:00
     private Integer hourlyWage;
-    private String startTime;   // 2020-06-24T12:00:00.000+09:00
+    private String startTime;   // 2020-06-25T09:00:00.000+09:00
     private String endTime;
     private Integer totalTime;
     private Integer dailyWage;
 
     public Salary(Integer hourlyWage, String startTime, String endTime) {
         this.date = new Date();
-        this.hourlyWage = defaultHourlyWage(hourlyWage);
         this.startTime = formatTime(startTime);
         this.endTime = formatTime(endTime);
         this.totalTime = calTotalTime(startTime, endTime);
+        this.hourlyWage = defaultHourlyWage(hourlyWage);
         this.dailyWage = calDailyWage(hourlyWage, startTime, endTime);
     }
 
     public String formatTime(String time) {
-        time = time.substring(0, 10) + " " + time.substring(11, 19);
-        return time;
+        String formatTime = time.substring(0, 10) + " " + time.substring(11, 19);
+        // 2020-06-25 09:00:00
+        return formatTime;
     }
 
     public Integer defaultHourlyWage(Integer hourlyWage) {
@@ -97,7 +98,7 @@ public class Salary {
                 }
             }
         }
-        //dailyWage = timeMap.values().stream().mapToInt(i -> i).sum();   // 1번
+
         dailyWage = timeMap.values().stream().reduce(0, Integer::sum);   //2번
 
         return dailyWage;

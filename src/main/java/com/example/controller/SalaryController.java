@@ -40,15 +40,12 @@ public class SalaryController {
     public Salary addRow(@RequestBody Salary salary) {
         Salary _salary = repository.save(
                 new Salary(
-                        salary.getHourlyWage(),
-                        salary.getStartTime(),
-                        salary.getEndTime()
+                    salary.getHourlyWage(),
+                    salary.getStartTime(),
+                    salary.getEndTime()
                 )
         );
 
         return _salary;
     }
-
-
-
 }
