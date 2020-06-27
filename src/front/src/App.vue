@@ -1,15 +1,20 @@
 <template>
   <div id="app">
-    <!-- 홈 화면 만들기 -->
     <div class="home" v-if="home">
-      <div class="imageArea" onload="showImage()">
-        <img id="introImg" border="0">
-        <div class="empty"></div>
-        <button @click="goMenu()" class="btn btn-primary">계산하러 가기</button>
+      <div class="imageArea">
+        <div class="images">
+          <fade-images :delay="5000" :width="2000" :height="700"
+                       :images="images"/>
+          <div class="image-cover"></div>
+        </div>
+        <div class="subject">
+          <h1>급여 계산기다 이말이야</h1>
+          <button @click="goMenu()" class="btn btn-primary">계산하러 가기</button>
+        </div>
       </div>
 
       <div class="intro">
-
+        <!-- 설명 쓰기 -->
       </div>
     </div>
 
@@ -38,6 +43,7 @@
   import 'vue-datetime/dist/vue-datetime.css';
   import {Settings} from 'luxon';
   import VueRouter from 'vue-router';
+  import FadeImages from 'vue-fade-images'
 
   Vue.use(Datetime);
   Settings.defaultLocale = 'ko';
@@ -61,6 +67,11 @@
       return {
         key: 0,
         home: true,
+        images: [
+          {src: require("../../front/src/assets/file.jpg")},
+          {src: require("../../front/src/assets/document.jpg")},
+          {src: require("../../front/src/assets/money.jpg")}
+        ]
       }
     },
     created() {
@@ -76,26 +87,13 @@
       DailyPay,
       WeeklyPay,
       MonthlyPay,
-      HolidayPay
+      HolidayPay,
+      FadeImages
     },
     methods: {
       goMenu() {
         this.home = false;
       },
-      showImage() {
-        var imgArray = new Array();
-        imgArray[0] = "../../front/src/assets/file.jpg";
-        imgArray[1] = "../../front/src/assets/document.jpg";
-        imgArray[2] = "../../front/src/assets/money.jpg";
-        imgArray[3] = "../../front/src/assets/number.jpg";
-
-
-        var imgNum = Math.round(Math.random() * 3);
-        var objImg = document.getElementById("introImg");
-        objImg.src = imgArray[imgNum];
-
-        setTimeout("showImage()", 200);
-      }
     }
   }
 </script>
@@ -103,30 +101,48 @@
 <style lang="scss" scoped>
 
   #app {
-    height: 900px;
+    height: 1000px;
 
     .home {
 
       .imageArea {
         min-width: 1000px;
-        height: 600px;
-        //background-image: url("../../front/src/assets/file.jpg");
-        background-size: cover;
+        height: 700px;
+        //background-size: cover;
         background-repeat: no-repeat;
         background-position: center center;
 
-        .empty {
-          height: 420px;
+        .images {
+          //background-size: cover;
+          position: relative;
+
+          .image-cover {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            z-index: 1;
+          }
         }
 
-        .btn {
-          display: flex;
-          width: 185px;
+        .subject {
+          position: absolute;
           text-align: center;
-          font-size: 25px;
-          margin: auto;
-          background-color: transparent;
-          border:2px white solid;
+          z-index: 2;
+
+          h1 {
+            min-width: 2000px;
+            color: white;
+            margin: 200px auto;
+          }
+
+          .btn {
+            width: 185px;
+            text-align: center;
+            font-size: 25px;
+            background-color: transparent;
+            border: 2px white solid;
+          }
         }
       }
     }
