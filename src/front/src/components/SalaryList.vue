@@ -1,10 +1,42 @@
 <template>
   <div class="salaryList">
     <div class="header">
-      <h3>일급 총 누적액 {{ dailyTotal }}원</h3>
-      <div @click="refreshRouterView()">
-        <router-link class="btn btn-primary" to="/addSalary">근무 시간 입력</router-link>
+      <div>
+        <h3>일급 총 누적액 {{ dailyTotal }}원</h3>
       </div>
+      <div>
+        <div @click="refreshRouterView()">
+          <router-link class="btn btn-primary" to="/addSalary">근무 시간 입력</router-link>
+        </div>
+        <div class="search">
+          <b-dropdown
+            id="dropdown-year" class="m-2" required
+            :text="selectedYear"
+          >
+            <b-dropdown-item
+              v-for="year in YearList" :key="year.id"
+              @click="selectYear(year)"
+            >
+              {{ year }}
+            </b-dropdown-item>
+          </b-dropdown>
+
+          <b-dropdown
+            id="dropdown-month" class="m-2" required
+            :text="selectedMonth"
+          >
+            <b-dropdown-item
+              v-for="month in MonthList" :key="month.id"
+              @click="selectMonth(month)"
+            >
+              {{ month }}
+            </b-dropdown-item>
+          </b-dropdown>
+
+          <button @click="getDailyWages()" class="btn btn-success">검색</button>
+        </div>
+      </div>
+
     </div>
     <div class="list">
       <h5><u>오후 10시부터 오전 6시 사이에 근무한 경우에는 시급 * 1.5배로 야간 수당이 계산됩니다.</u></h5>
@@ -51,16 +83,48 @@
         salary: [],
         daily: null,
         dailyTotal: 0,
+        selectedDate: {
+          year: "",
+          month: "",
+        },
+        selectedYear: '년도 선택',
+        YearList: ['2020', '2021', '2022', '2023', '2024', '2025'],
+
+        selectedMonth: '월 선택',
+        MonthList: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
       }
     },
     mounted() {
+      const _date = new Date();
+      const _curYear = _date.getFullYear();
+      const _curMonth = _date.getMonth() + 1;
+
+      // 처음에 현재 년/월에 맞는 데이터가 들어오도록
+      this.selectedDate = {
+        year: `${_curYear}`,
+        month: `${_curMonth < 10 ? '0':''}${_curMonth}`,
+      };
       this.getDailyWages();
     },
     methods: {
       refreshRouterView() {
         EventBus.$emit(EVENT.REFRESH_ROUTER_VIEW);
       },
+      selectYear(selectedItem) {
+        this.selectedYear = selectedItem;
+        this.selectedDate.year = this.selectedYear;
+      },
+      selectMonth(selectedItem) {
+        this.dailyTotal = 0;   // 검색 전 월까지 선택했을 때 누적 지출액 0으로
+        this.selectedMonth = selectedItem;
+        this.selectedDate.month = this.selectedMonth;
+      },
       getDailyWages() {
+        const requestData = {    // PostMapping 수정 / Selected 만들기
+          year: this.selectedDate.year,
+          month: this.selectedDate.month
+        };
+
         ApiSvc.get("/list")
           .then(res => {
             this.salary = res.data;
