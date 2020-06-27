@@ -51,9 +51,8 @@
 
 
     <div class="resultArea" v-show="result">
-      <h5>결과를 여기서 확인 {{ dailyPay }}원</h5>
       <h5>일주일 총 근무시간은 하루 {{ dailyTotalTime }}시간 X {{ days }}일로 총 {{ weeklyTotalTime }}시간입니다.</h5>
-      <h5> - 기본 수당: 일급 {{ dailyPay }}원 X {{ days }}시간 = {{ basicDailyPay }}원</h5>
+      <h5> - 기본 수당: 일급 {{ dailyPay }}원 X {{ days }}일 = {{ basicDailyPay }}원</h5>
       <h5> - 주휴 수당: {{ holidayPay }}원</h5>
       <h5>총 주급은 {{ weeklyPay }}원입니다.</h5>
     </div>
@@ -187,7 +186,7 @@
 
       .hourlyWageForm {
 
-        padding-top: 50px;
+        padding-top: 30px;
         display: flex;   // 옆으로 나란히
         align-items: center;   // 위아래 중앙
 
@@ -200,7 +199,7 @@
       }
 
       .startTime {
-        padding-top: 50px;
+        padding-top: 30px;
         display: flex;
         align-items: center;
 
@@ -216,7 +215,7 @@
       }
 
       .endTime {
-        padding-top: 50px;
+        padding-top: 30px;
         display: flex;
         align-items: center;
 
@@ -228,7 +227,7 @@
       }
 
       .workingDays {
-        padding-top: 50px;
+        padding-top: 30px;
         display: flex;
         align-items: center;
 
@@ -241,6 +240,7 @@
     }
 
     .btnArea {
+      padding-top: 30px;
       display: flex;
       width: 100px;
       justify-content: center;
@@ -249,6 +249,7 @@
     }
 
     .resultArea {
+      padding-top: 50px;
       width: 1000px;
       margin: auto;
       align-items: center;
