@@ -102,4 +102,20 @@ public class Salary {
 
         return dailyWage;
     }
+
+    public String filterDate() {
+        String filteredDate = "";
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(this.date);
+
+        if ((cal.get(Calendar.MONTH) + 1) < 10) {
+            // 2020-05-11 -> 2020-05
+            filteredDate = (cal.get(Calendar.YEAR)) + "-0" + (cal.get(Calendar.MONTH) + 1);
+        } else {
+            // 2020-12-11 -> 2020-12
+            filteredDate = (cal.get(Calendar.YEAR)) + "-" + (cal.get(Calendar.MONTH) + 1);
+        }
+
+        return filteredDate;
+    }
 }

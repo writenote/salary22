@@ -2,7 +2,7 @@
   <div class="salaryList">
     <div class="header">
       <div>
-        <h3>일급 총 누적액 {{ dailyTotal }}원</h3>
+        <h3>{{ selectedDate.year }}년 {{ selectedDate.month }}월 일급 총 누적액 {{ dailyTotal }}원</h3>
       </div>
       <div>
         <div @click="refreshRouterView()">
@@ -120,12 +120,12 @@
         this.selectedDate.month = this.selectedMonth;
       },
       getDailyWages() {
-        const requestData = {    // PostMapping 수정 / Selected 만들기
+        const requestData = {
           year: this.selectedDate.year,
           month: this.selectedDate.month
         };
 
-        ApiSvc.get("/list")
+        ApiSvc.post("/list", requestData)   // PostMapping 수정
           .then(res => {
             this.salary = res.data;
 

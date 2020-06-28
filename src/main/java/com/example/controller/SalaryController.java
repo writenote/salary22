@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import com.example.model.Salary;
+import com.example.model.SelectedDate;
 import com.example.repository.SalaryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -17,11 +19,14 @@ public class SalaryController {
     @Autowired
     SalaryRepository repository;
 
-    @GetMapping("/list")
-    public List<Salary> findAll() {
+    @PostMapping("/list")
+    public List<Salary> findAll(@RequestBody SelectedDate selectedDate) {
         System.out.println("Get a List...");
 
-        List<Salary> list = repository.findAll();
+        List<Salary> list = repository.findAll().stream()
+                .filter(a -> a.filterDate().equals(selectedDate.getYear() + "-" + selectedDate.getMonth()))
+                .collect(Collectors.toList());
+
         list.sort((a1, a2) -> a2.getId().compareTo(a1.getId()));
 
         return list;
