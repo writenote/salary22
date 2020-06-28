@@ -14,7 +14,7 @@
       </div>
 
       <div class="intro">
-        <!-- 설명 쓰기 -->
+        <h1>기능 소개</h1>
       </div>
     </div>
 
