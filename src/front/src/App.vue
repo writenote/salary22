@@ -70,7 +70,8 @@
         images: [
           {src: require("../../front/src/assets/file.jpg")},
           {src: require("../../front/src/assets/document.jpg")},
-          {src: require("../../front/src/assets/money.jpg")}
+          {src: require("../../front/src/assets/money.jpg")},
+          {src: require("../../front/src/assets/number.jpg")}
         ]
       }
     },
