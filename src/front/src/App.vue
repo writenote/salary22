@@ -8,7 +8,7 @@
           <div class="image-cover"></div>
         </div>
         <div class="subject">
-          <h1>급여 계산기다 이말이야</h1>
+          <h1>급여 계산기</h1>
           <button @click="goMenu()" class="btn btn-primary">계산하러 가기</button>
         </div>
       </div>
@@ -120,7 +120,7 @@
             position: absolute;
             height: 700px;
             width: 2000px;
-            background-color: rgba(0, 0, 0, 0.4);
+            background-color: rgba(0, 0, 0, 0.3);
             z-index: 1;
           }
         }
