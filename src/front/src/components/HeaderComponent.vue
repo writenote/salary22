@@ -5,7 +5,7 @@
     </div>
     <nav>
       <div @click="refreshRouterView()">
-        <router-link class="btn btn-primary" to="/list">매일 입력하기</router-link>
+        <router-link class="btn btn-primary" to="/list">일급 목록</router-link>
       </div>
       <div @click="refreshRouterView()">
         <router-link class="btn btn-primary" to="/daily">일급 계산하기</router-link>

@@ -51,7 +51,10 @@
 
 
     <div class="resultArea" v-show="result">
-      <h5>결과를 여기서 확인 {{ dailyPay }}원</h5>
+      <h5>일주일 총 근무시간은 하루 {{ dailyTotalTime }}시간 X {{ days }}일로 총 {{ weeklyTotalTime }}시간입니다.</h5>
+      <h5> - 기본 수당: 일급 {{ dailyPay }}원 X {{ days }}일 = {{ basicDailyPay }}원</h5>
+      <h5> - 주휴 수당: {{ holidayPay }}원</h5>
+      <h5>총 주급은 {{ weeklyPay }}원입니다.</h5>
     </div>
   </div>
 </template>
@@ -68,6 +71,10 @@
         days: "",
         dailyPay: 0,
         weeklyPay: 0,
+        dailyTotalTime: 0,
+        weeklyTotalTime: 0,
+        basicDailyPay: 0,
+        holidayPay: 0,
         selectedDays: '근무 일수 선택',
         daysList: ['1', '2', '3', '4', '5', '6', '7']
       }
@@ -91,27 +98,28 @@
         const workStartTime = parseInt(formatStartTime);   // 9
         const workEndTime = parseInt(formatEndTime);   // 12
 
-        var timeList = new Array(24);
-        for(var i=0; i<=23; i++) {
+        let timeList = new Array(24);
+        for(let i=0; i<=23; i++) {
           timeList[i] = Boolean(false);
         }
 
         if(workStartTime < workEndTime) {   // 근무 시간이 하루 안에 시작 및 종료
-          for(var i=workStartTime; i<workEndTime; i++) {
+          for(let i=workStartTime; i<workEndTime; i++) {
             timeList[i] = Boolean(true);
           }
         } else {   // 근무 시간이 자정을 넘어감
-          for(var i=workStartTime; i<=23; i++) {
+          for(let i=workStartTime; i<=23; i++) {
             timeList[i] = Boolean(true);
           }
-          for(var i=0; i<workEndTime; i++) {
+          for(let i=0; i<workEndTime; i++) {
             timeList[i] = Boolean(true);
           }
         }
 
-        var timeMap = new Map();
-        for(var i=0; i<=23; i++) {
+        let timeMap = new Map();
+        for(let i=0; i<=23; i++) {
           if(timeList[i] == Boolean(true)) {
+            this.dailyTotalTime++;
             if(i>=6 && i<=21) {
               timeMap.set(i, hourlyWage);   // 주간 기본 시급
             } else {
@@ -120,13 +128,38 @@
           }
         }
 
-        var sum=0;
+        let sum=0;
         timeMap.forEach(function (value) {
           sum += value;
         });
-        this.dailyPay = sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");;
+        this.dailyPay = sum;
+        this.weeklyTotalTime = this.dailyTotalTime * days;
+        this.basicDailyPay = this.dailyPay * days;
+
+        if(this.weeklyTotalTime >= 15 && this.weeklyTotalTime < 40) {
+          this.holidayPay = (this.weeklyTotalTime / 40) * 8 * hourlyWage;
+        } else if(this.weeklyTotalTime >= 40) {
+          this.holidayPay = 8 * hourlyWage;
+        }
+
+        this.weeklyPay = this.basicDailyPay + this.holidayPay;
+        this.dailyPay = sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        this.basicDailyPay = this.basicDailyPay.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        this.holidayPay = this.holidayPay.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        this.weeklyPay = this.weeklyPay.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        // this.formatPay(this.dailyPay);
+        // this.formatPay(this.basicDailyPay);
+        // this.formatPay(this.holidayPay);
+        // this.formatPay(this.weeklyPay);
+
         this.result = true;
       },
+      formatPay(pay) {
+        pay = pay.toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+        return pay;
+      }
     }
   }
 </script>
@@ -153,7 +186,7 @@
 
       .hourlyWageForm {
 
-        padding-top: 50px;
+        padding-top: 30px;
         display: flex;   // 옆으로 나란히
         align-items: center;   // 위아래 중앙
 
@@ -166,7 +199,7 @@
       }
 
       .startTime {
-        padding-top: 50px;
+        padding-top: 30px;
         display: flex;
         align-items: center;
 
@@ -182,7 +215,7 @@
       }
 
       .endTime {
-        padding-top: 50px;
+        padding-top: 30px;
         display: flex;
         align-items: center;
 
@@ -194,7 +227,7 @@
       }
 
       .workingDays {
-        padding-top: 50px;
+        padding-top: 30px;
         display: flex;
         align-items: center;
 
@@ -207,9 +240,8 @@
     }
 
     .btnArea {
-      padding-top: 50px;
+      padding-top: 30px;
       display: flex;
-
       width: 100px;
       justify-content: center;
       font-size: 18px;
@@ -217,9 +249,9 @@
     }
 
     .resultArea {
+      padding-top: 50px;
       width: 1000px;
       margin: auto;
-      display: flex;
       align-items: center;
       justify-content: space-between;
     }

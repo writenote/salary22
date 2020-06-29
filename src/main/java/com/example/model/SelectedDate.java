@@ -7,7 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Worker {
+public class SelectedDate {
 
-    private String worker;
+    private String year;
+    private String month;
 }
