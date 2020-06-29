@@ -42,10 +42,10 @@
       <h3>총 일급은 {{ dailyPay }}원 입니다.</h3><br>-->
 
       <div>
-        주간근무 {{ daywork }}시간<br>
-        야간근무 {{ nightwork }}시간<br>
-        하루 총 근무 시간 {{ totalwork }}시간<br>
-        총 일급은 {{ dailyPay }}원 입니다.<br>
+        <h5>주간근무 {{ daywork }}시간<br></h5>
+        <h5>야간근무 {{ nightwork }}시간<br></h5>
+        <h5>하루 총 근무 시간 {{ totalwork }}시간<br></h5>
+        <h5>총 일급은 {{ dailyPay }}원 입니다.<br></h5>
       </div>
 
     </div>
