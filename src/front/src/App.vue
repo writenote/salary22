@@ -3,7 +3,7 @@
     <div class="home" v-if="home">
       <div class="imageArea">
         <div class="images">
-          <fade-images :delay="5000" :width="2000" :height="700"
+          <fade-images :delay="5000" :height="700" :width="'100%'"
                        :images="images"/>
           <div class="image-cover"></div>
         </div>
@@ -15,6 +15,7 @@
 
       <div class="intro">
         <h1>기능 소개</h1>
+        <h2>문장을 더 추가하면</h2>
       </div>
     </div>
 
@@ -102,11 +103,14 @@
 <style lang="scss" scoped>
 
   #app {
-    height: 1000px;
+    height: 100%;  //
 
     .home {
+      height: 100%;
+      //min-height: 1000px;
 
       .imageArea {
+        //min-width: 1000px;
         min-width: 1000px;
         height: 700px;
         //background-size: cover;
@@ -116,11 +120,13 @@
         .images {
           //background-size: cover;
           position: relative;
+          width: 100vw;
 
           .image-cover {
             position: absolute;
             height: 700px;
-            width: 2000px;
+            //width: 2000px;
+            width: 100vw;
             background-color: rgba(0, 0, 0, 0.3);
             z-index: 1;
           }
@@ -132,15 +138,17 @@
           z-index: 2;
 
           h1 {
-            min-width: 2000px;
+            //min-width: 2000px;
+            width: 100vw;
             color: white;
             margin: 200px auto;
+            font-size: 70px;
           }
 
           .btn {
-            width: 185px;
+            width: 250px;
             text-align: center;
-            font-size: 25px;
+            font-size: 30px;
             background-color: transparent;
             border: 2px white solid;
           }
