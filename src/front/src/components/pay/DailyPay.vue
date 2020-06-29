@@ -1,160 +1,150 @@
 <template>
-  <div class="addForm">
-    <div v-if="!submitted">
+  <div class="daily">
+    <div class="subject">
       <h3>일급 계산하기</h3>
-
-      <div class="dateTimePicker">
-        <div class="startTime">
-          <label for="startTime">시작 시간</label>
-          <datetime type="datetime" class="form-control" id="startTime"
-                    v-model="once.startTime" placeholder="날짜 선택"
-                    value-zone="Asia/Seoul"
-                    :minute-step="60"
-          ></datetime>
-        </div>
-
-        <div class="endTime">
-          <label for="endTime">종료 시간</label>
-          <datetime type="datetime" class="form-control" id="endTime"
-                    v-model="once.endTime" placeholder="날짜 선택"
-                    value-zone="Asia/Seoul"
-                    :minute-step="60"
-          ></datetime>
-        </div>
-      </div>
-
+    </div>
+    <div class="inputForm">
       <div class="hourlyWageForm">
         <label for="hourlyWage">시급</label>
         <input type="text" class="form-control" placeholder="최저시급 8,590원" id="hourlyWage"
-               v-model="once.hourlyWage"/>
+               v-model="hourlyWage"/>
       </div>
 
-      <div class="resultForm">
-        <label for="result">임시 결과</label>
-        <p class="form-control" id="result">{{ once.result }}</p>
+      <div class="startTime">
+        <label for="startTime">시작 시간</label>
+        <datetime type="datetime" id="startTime" class="form-control" placeholder="시간 선택"
+                  value-zone="Asia/Seoul"
+                  :minute-step="60"
+                  v-model="startTime">
+        </datetime>
       </div>
 
-      <button v-on:click="onceadd" class="btn btn-success">계산하기</button>
+      <div class="endTime">
+        <label for="endTime">종료 시간</label>
+        <datetime type="datetime" id="endTime" class="form-control" placeholder="시간 선택"
+                  value-zone="Asia/Seoul"
+                  :minute-step="60"
+                  v-model="endTime">
+        </datetime>
+      </div>
+    </div>
+
+    <div class="btnArea">
+      <button @click="calWeeklyPay(hourlyWage, startTime, endTime)" class="btn btn-success">계산하기</button>
     </div>
 
 
-  </div>
+    <div class="resultArea" v-show="result">
 
+     <!-- <h5>주간근무 {{ daywork }}시간</h5><br>
+      <h5>야간근무 {{ nightwork }}시간</h5><br>
+      <h5>하루 총 근무 시간 {{ totalwork }}시간</h5><br><br>
+      <h3>총 일급은 {{ dailyPay }}원 입니다.</h3><br>-->
+
+      <div>
+        주간근무 {{ daywork }}시간<br>
+        야간근무 {{ nightwork }}시간<br>
+        하루 총 근무 시간 {{ totalwork }}시간<br>
+        총 일급은 {{ dailyPay }}원 입니다.<br>
+      </div>
+
+    </div>
+  </div>
 </template>
 
-
-
 <script>
-  import Vue from 'vue';
-  import Datetime from 'vue-datetime';
-  import 'vue-datetime/dist/vue-datetime.css';
-  import {Settings} from 'luxon';
-
-  Vue.use(Datetime);
-  Settings.defaultLocale = 'ko';
-
   export default {
     name: "DailyPay",
     data() {
       return {
-        once: {
-          id: 0,
-          startTime: "",
-          endTime: "",
-          hourlyWage: "",
-          result: "",
-        },
-        submitted: false,
+        result: false,
+        hourlyWage: null,
+        startTime: "",
+        endTime: "",
+        daywork: 0,
+        nightwork: 0,
+        totalwork: 0,
+        dailyPay: 0
       }
     },
     methods: {
-      onceadd() {
-        this.result = formatTime(this.startTime);
+      calWeeklyPay(hourlyWage, startTime, endTime) {
+
+        if(hourlyWage == null) {
+          hourlyWage = 8590;
+        } else {
+          hourlyWage = parseInt(hourlyWage);
+        }
+
+        const formatStartTime = startTime.substring(11, 13);   // 2020-06-26T09:00:00.000+09:00 -> 09
+        const formatEndTime = endTime.substring(11, 13);   // 12
+
+        const workStartTime = parseInt(formatStartTime);   // 9
+        const workEndTime = parseInt(formatEndTime);   // 12
+
+        var timeList = new Array(24);
+        for(var i=0; i<=23; i++) {
+          timeList[i] = Boolean(false);
+        }
+
+        if(workStartTime < workEndTime) {   // 근무 시간이 하루 안에 시작 및 종료
+          for(var i=workStartTime; i<workEndTime; i++) {
+            timeList[i] = Boolean(true);
+          }
+        } else {   // 근무 시간이 자정을 넘어감
+          for(var i=workStartTime; i<=23; i++) {
+            timeList[i] = Boolean(true);
+          }
+          for(var i=0; i<workEndTime; i++) {
+            timeList[i] = Boolean(true);
+          }
+        }
+
+
+        var timeMap = new Map();
+        for(var i=0; i<=23; i++) {
+          if(timeList[i] == Boolean(true)) {
+            if(i>=6 && i<=21) {
+              timeMap.set(i, hourlyWage);   // 주간 기본 시급
+              this.daywork++;
+            } else {
+              timeMap.set(i, (hourlyWage*1.5));   // 야간 수당
+              this.nightwork++;
+            }
+          }
+        }
+
+        var sum=0;
+        timeMap.forEach(function (value) {
+          sum += value;
+        });
+        this.totalwork = (this.daywork + this.nightwork);
+        this.dailyPay = sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");;
+        this.result = true;
       },
     }
-  };
-
-
-  function formatTime(String) {
-    var f  = String.substring(0, 10) + " " + String.substring(11, 19);
-    // 2020-06-25 09:00:00
-    return f;
   }
-
- /* function calTotalTime(f1, f2) {
-    formatTime1 = f1.substring(0, 23);
-    formatTime2 = f2.substring(0, 23);
-    workStartTime = LocalDateTime.parse(formatTime1);  // 2020-06-24T12:00
-    workEndTime = LocalDateTime.parse(formatTime2);
-
-    totalTime = Math.toIntExact(ChronoUnit.HOURS.between(workStartTime, workEndTime));
-
-    return totalTime;
-  }
-
-  function Hashtest(){//test
-    try{
-      var map = new HashMap();
-      map.put("1", "2");
-      //map.put("3", "4");
-      //map.remove("1");
-      var allTemp = map.getAll();
-      for(i in allTemp){  alert(i);}
-      alert(map.toString());
-    }catch(e){alert(e);}
-  }
-
-  var timeMap = new HashMap();
-  timeMap
-  for(var i=0; i<=23; i++) {
-    if(timeList.get(i) == Boolean.TRUE) {
-      if(i>=6 && i<=21) {   //  && hourlyWage!=null
-        timeMap.put(i, hourlyWage);   // 주간 기본 시급
-      } else {
-        timeMap.put(i, (int)(hourlyWage*1.5));   // 야간 수당
-      }
-    }
-  }
-*/
 </script>
 
 <style lang="scss" scoped>
 
-  .addForm {
+  .daily {
     padding-top: 100px;
-    justify-content: center;   // 화면 중앙
-    text-align: center;
-    max-width: 500px;
-    margin: auto;
 
-    div {
+    .subject {
+      width: 1000px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-      .dateTimePicker {
+    .inputForm {
 
-        .startTime {
-          padding-top: 50px;
-          display: flex;
-          align-items: center;
-
-          label {
-            min-width: 100px;
-            margin: auto;
-            text-align: left;
-          }
-        }
-
-        .endTime {
-          padding-top: 50px;
-          display: flex;
-          align-items: center;
-
-          label {
-            min-width: 100px;
-            margin: auto;
-            text-align: left;
-          }
-        }
-      }
+      justify-content: center;   // 화면 중앙
+      text-align: center;
+      max-width: 500px;
+      margin: auto;
 
       .hourlyWageForm {
 
@@ -170,30 +160,54 @@
 
       }
 
-      .resultForm {
-
+      .startTime {
         padding-top: 50px;
-        display: flex;   // 옆으로 나란히
-        align-items: center;   // 위아래 중앙
+        display: flex;
+        align-items: center;
 
         label {
           min-width: 100px;
-          margin: auto;
+          margin-left: 0px;
           text-align: left;
         }
 
+        dateTime {
+          //width: 500px;
+        }
       }
 
-      .btn {
-        margin: 50px;
+      .endTime {
+        padding-top: 50px;
+        display: flex;
+        align-items: center;
+
+        label {
+          min-width: 100px;
+          margin-left: 0px;
+          text-align: left;
+        }
       }
     }
 
-    div {
+    .btnArea {
+      padding-top: 50px;
+      padding-bottom: 50px;
+      display: flex;
 
-      .btn {
-        margin: 100px;
-      }
+      width: 100px;
+      justify-content: center;
+      font-size: 18px;
+      margin: 0 auto;
+    }
+
+    .resultArea {
+      font-size: large;
+
+      width: 1000px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
   }
 </style>
