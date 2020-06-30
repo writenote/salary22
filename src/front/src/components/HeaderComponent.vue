@@ -5,19 +5,19 @@
     </div>
     <nav>
       <div @click="refreshRouterView()">
-        <router-link class="btn bestcss" to="/list">일급 목록</router-link>
+        <router-link class="btn btn-primary" to="/list">일급 목록</router-link>
       </div>
       <div @click="refreshRouterView()">
-        <router-link class="btn bestcss" to="/daily">일급 계산하기</router-link>
+        <router-link class="btn btn-primary" to="/daily">일급 계산하기</router-link>
       </div>
       <div @click="refreshRouterView()">
-        <router-link class="btn bestcss" to="/weekly">주급 계산하기</router-link>
+        <router-link class="btn btn-primary" to="/weekly">주급 계산하기</router-link>
       </div>
       <div @click="refreshRouterView()">
-        <router-link class="btn bestcss" to="/monthly">월급 계산하기</router-link>
+        <router-link class="btn btn-primary" to="/monthly">월급 계산하기</router-link>
       </div>
       <div @click="refreshRouterView()">
-        <router-link class="btn bestcss" to="/holiday">주휴수당 계산하기</router-link>
+        <router-link class="btn btn-primary" to="/holiday">주휴수당 계산하기</router-link>
       </div>
     </nav>
   </div>
@@ -38,15 +38,15 @@
 </script>
 
 <style lang="scss" scoped>
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500&display=swap');
 
   .headerComponent {
     min-width: 1000px;
     height: 400px;
-    background-color: #fff277;
+    background-color: #A5D6A7;        //#fff277;
 
     .subject {
-      font-family: 'Noto Serif KR', serif;
+      color: white;
+      font-family: 'Nanum Gothic Coding', monospace;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -60,39 +60,13 @@
 
       .btn {
         margin: 5px;
+        width: 200px;
+        text-align: center;
+        font-size: 20px;
+        font-family: 'Nanum Gothic Coding', monospace;
+        background-color: transparent;
+        border: 1px white solid;
       }
-
-
-      .bestcss {
-        box-shadow: 0px 0px 0px 0px #f0f7fa;
-        background:linear-gradient(to bottom, #33bdef 5%, #019ad2 100%);
-        background-color:#33bdef;
-        border-radius:11px;
-        display:inline-block;
-        cursor:pointer;
-        color:#ffffff;
-        font-family:Arial;
-        font-size:15px;
-        padding:11px 23px;
-        text-decoration:none;
-      }
-      .bestcss:hover {
-        background:linear-gradient(to bottom, #019ad2 5%, #33bdef 100%);
-        background-color:#019ad2;
-      }
-      .bestcss:active {
-        position:relative;
-        top:1px;
-      }
-
-
-
-
-
-
-
     }
-
-
   }
 </style>

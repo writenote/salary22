@@ -248,7 +248,6 @@
 
     .btnArea {
       padding-top: 30px;
-      padding-bottom: 100px;
       display: flex;
       width: 100px;
       justify-content: center;
@@ -258,7 +257,6 @@
 
     .resultArea {
       padding-top: 50px;
-      padding-bottom: 100px;
       width: 1000px;
       margin: auto;
       align-items: center;

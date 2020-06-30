@@ -35,6 +35,12 @@
 
 
     <div class="resultArea" v-show="result">
+
+     <!-- <h5>주간근무 {{ daywork }}시간</h5><br>
+      <h5>야간근무 {{ nightwork }}시간</h5><br>
+      <h5>하루 총 근무 시간 {{ totalwork }}시간</h5><br><br>
+      <h3>총 일급은 {{ dailyPay }}원 입니다.</h3><br>-->
+
       <div>
         <h5>주간근무 {{ daywork }}시간<br></h5>
         <h5>야간근무 {{ nightwork }}시간<br></h5>
@@ -185,7 +191,7 @@
 
     .btnArea {
       padding-top: 50px;
-      padding-bottom: 100px;
+      padding-bottom: 50px;
       display: flex;
 
       width: 100px;
@@ -196,7 +202,6 @@
 
     .resultArea {
       font-size: large;
-      padding-bottom: 100px;
 
       width: 1000px;
       margin: auto;
