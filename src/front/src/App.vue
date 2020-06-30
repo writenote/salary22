@@ -3,7 +3,7 @@
     <div class="home" v-if="home">
       <div class="imageArea">
         <div class="images">
-          <fade-images :delay="5000" :width="2000" :height="700"
+          <fade-images :delay="5000" :width="'100%'" :height="350"
                        :images="images"/>
           <div class="image-cover"></div>
         </div>
@@ -102,13 +102,13 @@
 <style lang="scss" scoped>
 
   #app {
-    height: 1000px;
+    height: 100%;
 
     .home {
 
       .imageArea {
         min-width: 1000px;
-        height: 700px;
+        height: 350px;
         //background-size: cover;
         background-repeat: no-repeat;
         background-position: center center;
@@ -116,11 +116,12 @@
         .images {
           //background-size: cover;
           position: relative;
+          width: 100vw;
 
           .image-cover {
             position: absolute;
-            height: 700px;
-            width: 2000px;
+            height: 350px;
+            width: 100vw;
             background-color: rgba(0, 0, 0, 0.3);
             z-index: 1;
           }
@@ -132,9 +133,10 @@
           z-index: 2;
 
           h1 {
-            min-width: 2000px;
+            //min-width: 2000px;
+            width: 100vw;
             color: white;
-            margin: 200px auto;
+            margin: 100px auto;
           }
 
           .btn {
