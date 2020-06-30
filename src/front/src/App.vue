@@ -71,7 +71,8 @@
         images: [
           {src: require("../../front/src/assets/businessmen-standing-coins.jpg")},
           {src: require("../../front/src/assets/coin-tower.jpg")},
-          {src: require("../../front/src/assets/red-pencil.jpg")}
+          {src: require("../../front/src/assets/red-pencil.jpg")},
+          {src: require("../../front/src/assets/working-people.jpg")},
         ]
       }
     },
