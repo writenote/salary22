@@ -167,7 +167,7 @@
 <style lang="scss" scoped>
 
   .weekly {
-    padding-top: 100px;
+    margin: 100px;
 
     .subject {
       width: 1000px;
@@ -207,10 +207,6 @@
           min-width: 100px;
           margin-left: 0px;
           text-align: left;
-        }
-
-        dateTime {
-          //width: 500px;
         }
       }
 
