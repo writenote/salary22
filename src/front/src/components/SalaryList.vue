@@ -179,7 +179,7 @@
 <style lang="scss" scoped>
 
   .salaryList {
-    padding-top: 100px;
+    margin: 100px;
 
     .header {
       width: 1000px;
