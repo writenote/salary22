@@ -5,7 +5,7 @@
         <h3>{{ selectedDate.year }}년 {{ selectedDate.month }}월 일급 총 누적액 {{ dailyTotal }}원</h3>
       </div>
       <div>
-        <div @click="refreshRouterView()">
+        <div class="input" @click="refreshRouterView()">
           <router-link class="btn btn-primary" to="/addSalary">근무 시간 입력</router-link>
         </div>
         <div class="search">
@@ -39,7 +39,7 @@
 
     </div>
     <div class="list">
-      <h5><u>오후 10시부터 오전 6시 사이에 근무한 경우에는 시급 * 1.5배로 야간 수당이 계산됩니다.</u></h5>
+      <h6>※ 22:00 ~ 06:00 사이 근무 시, 야간수당(시급의 1.5배)이 적용됩니다.</h6>
       <table>
         <thead>
         <tr>
@@ -49,7 +49,7 @@
           <th class="totalTime">근무 시간</th>
           <th class="hourlyWage">시급</th>
           <th class="dailyWage">일급</th>
-          <th class="edit">편집</th>
+          <th class="edit">삭제</th>
         </tr>
         </thead>
 
@@ -62,7 +62,7 @@
           <td>{{ formatWage(daily.hourlyWage) }}원</td>
           <td>{{ formatWage(daily.dailyWage) }}원</td>
           <td>
-            <button @click="deleteRow(daily.id)" class="btn btn-danger">삭제</button>
+            <button @click="deleteRow(daily.id)" class="btn btn-danger"><h4>&#x00D7;</h4></button>
           </td>
         </tr>
         </tbody>
@@ -187,29 +187,60 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+
+      .input {
+        margin-left: 180px;
+      }
     }
 
     .list {
       padding-top: 50px;
 
-      h5 {
+      h6 {
+        text-align: right;
+        color: red;
         margin: auto;
         width: 1200px;
       }
 
       table {
+        border-collapse: collapse;
+        border-top: 3px solid #168;
         margin: auto;
         font-size: 20px;
         width: 1200px;
 
         tr th {
+          color: #168;
+          background: #f0f6f9;
           text-align: center;
           height: 50px;
+        }
+
+        tr:nth-child(even) {
+          background: #f1efef;
+        }
+
+        tr:hover {
+          background-color: rgb(255, 239, 241);
         }
 
         tr td {
           text-align: center;
           height: 50px;
+
+          .btn {
+            background-color: #ff6a46;
+            border: #ff6a46;
+            margin: 0;
+            padding: 3px;
+
+            h4 {
+              color: white;
+              margin: 0;
+              padding: 0;
+            }
+          }
         }
       }
     }
