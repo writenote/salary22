@@ -80,11 +80,11 @@
 <style lang="scss" scoped>
 
   .addForm {
+    margin: 100px;
     padding-top: 100px;
     justify-content: center;   // 화면 중앙
     text-align: center;
     max-width: 500px;
-    margin: auto;
 
     div {
 

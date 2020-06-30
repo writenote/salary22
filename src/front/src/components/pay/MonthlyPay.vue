@@ -174,7 +174,7 @@
 <style lang="scss" scoped>
 
   .monthly {
-    padding-top: 100px;
+    margin: 100px;
 
     .subject {
       width: 1000px;

@@ -6,13 +6,13 @@
     <div class="inputForm">
       <div class="hourlyWageForm">
         <label for="hourlyWage">시급</label>
-        <input type="text" class="form-control" placeholder="최저시급 8,590원" id="hourlyWage"
+        <input type="text" class="form" placeholder="최저시급 8,590원" id="hourlyWage"
                v-model="hourlyWage"/>
       </div>
 
       <div class="startTime">
         <label for="startTime">시작 시간</label>
-        <datetime type="datetime" id="startTime" class="form-control" placeholder="시간 선택"
+        <datetime type="time" id="startTime" placeholder="시간 선택"
                   value-zone="Asia/Seoul"
                   :minute-step="60"
                   v-model="startTime">
@@ -21,7 +21,7 @@
 
       <div class="endTime">
         <label for="endTime">종료 시간</label>
-        <datetime type="datetime" id="endTime" class="form-control" placeholder="시간 선택"
+        <datetime type="time" id="endTime" placeholder="시간 선택"
                   value-zone="Asia/Seoul"
                   :minute-step="60"
                   v-model="endTime">
@@ -35,19 +35,12 @@
 
 
     <div class="resultArea" v-show="result">
-
-     <!-- <h5>주간근무 {{ daywork }}시간</h5><br>
-      <h5>야간근무 {{ nightwork }}시간</h5><br>
-      <h5>하루 총 근무 시간 {{ totalwork }}시간</h5><br><br>
-      <h3>총 일급은 {{ dailyPay }}원 입니다.</h3><br>-->
-
       <div>
-        <h5>주간근무 {{ daywork }}시간<br></h5>
-        <h5>야간근무 {{ nightwork }}시간<br></h5>
-        <h5>하루 총 근무 시간 {{ totalwork }}시간<br></h5>
-        <h5>총 일급은 {{ dailyPay }}원 입니다.<br></h5>
+        <h5>주간근무 {{ daywork }}시간</h5>
+        <h5>야간근무 {{ nightwork }}시간</h5>
+        <h5>하루 총 근무 시간 {{ totalwork }}시간</h5>
+        <h5>총 일급은 {{ dailyPay }}원 입니다.</h5>
       </div>
-
     </div>
   </div>
 </template>
@@ -129,7 +122,7 @@
 <style lang="scss" scoped>
 
   .daily {
-    padding-top: 100px;
+    margin-top: 100px;
 
     .subject {
       width: 1000px;
@@ -154,8 +147,17 @@
 
         label {
           min-width: 100px;
-          margin: auto;
+          margin-left: 0px;
           text-align: left;
+        }
+
+        .form {
+          padding: 1px 3px;
+          width: 187px;
+          height: 30px;
+          border: 1px #626e7a solid;
+          border-radius: 3px;
+          // 186.13 29.47
         }
 
       }
@@ -169,10 +171,6 @@
           min-width: 100px;
           margin-left: 0px;
           text-align: left;
-        }
-
-        dateTime {
-          //width: 500px;
         }
       }
 
@@ -201,11 +199,11 @@
     }
 
     .resultArea {
+      background-color: lightgrey;
+      padding: 5% 5% 5% 15%;
       font-size: large;
-
-      width: 1000px;
+      width: 100vw;
       margin: auto;
-      display: flex;
       align-items: center;
       justify-content: space-between;
     }

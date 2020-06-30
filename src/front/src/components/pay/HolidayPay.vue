@@ -64,7 +64,7 @@
 <style lang="scss" scoped>
 
   .holiday {
-    padding-top: 100px;
+    margin: 100px;
 
     .subject {
       width: 1000px;

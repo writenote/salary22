@@ -46,7 +46,6 @@
 
     .subject {
       color: white;
-      font-family: 'Nanum Gothic Coding', monospace;
       display: flex;
       justify-content: center;
       align-items: center;
