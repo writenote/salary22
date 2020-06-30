@@ -15,7 +15,7 @@
         <datetime type="time" id="startTime" placeholder="시간 선택"
                   value-zone="Asia/Seoul"
                   :minute-step="60"
-                  v-model="startTime">
+                  v-model="startTime">  <!--class="theme-orange"-->
         </datetime>
       </div>
 

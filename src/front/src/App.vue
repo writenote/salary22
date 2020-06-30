@@ -69,10 +69,9 @@
         key: 0,
         home: true,
         images: [
-          {src: require("../../front/src/assets/file.jpg")},
-          {src: require("../../front/src/assets/document.jpg")},
-          {src: require("../../front/src/assets/money.jpg")},
-          {src: require("../../front/src/assets/number.jpg")}
+          {src: require("../../front/src/assets/businessmen-standing-coins.jpg")},
+          {src: require("../../front/src/assets/coin-tower.jpg")},
+          {src: require("../../front/src/assets/red-pencil.jpg")}
         ]
       }
     },
@@ -103,31 +102,26 @@
 <style lang="scss" scoped>
 
   #app {
-    height: 100%;  //
+    height: 100%;
 
     .home {
       height: 100%;
-      //min-height: 1000px;
 
       .imageArea {
-        //min-width: 1000px;
         min-width: 1000px;
         height: 700px;
-        //background-size: cover;
         background-repeat: no-repeat;
         background-position: center center;
 
         .images {
-          //background-size: cover;
           position: relative;
           width: 100vw;
 
           .image-cover {
             position: absolute;
             height: 700px;
-            //width: 2000px;
             width: 100vw;
-            background-color: rgba(0, 0, 0, 0.3);
+            background-color: rgba(0, 0, 0, 0.5);
             z-index: 1;
           }
         }
@@ -138,7 +132,9 @@
           z-index: 2;
 
           h1 {
-            //min-width: 2000px;
+            //font-family: "나눔스퀘어라운드 Bold";
+            //font-family: 'NanumBarunGothic', sans-serif;
+            font-family: 'Nanum Gothic Coding', monospace;
             width: 100vw;
             color: white;
             margin: 200px auto;
@@ -149,6 +145,7 @@
             width: 250px;
             text-align: center;
             font-size: 30px;
+            font-family: 'Nanum Gothic Coding', monospace;
             background-color: transparent;
             border: 2px white solid;
           }

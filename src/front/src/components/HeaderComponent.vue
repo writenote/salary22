@@ -42,9 +42,11 @@
   .headerComponent {
     min-width: 1000px;
     height: 400px;
-    background-color: #fff277;
+    background-color: #A5D6A7;        //#fff277;
 
     .subject {
+      color: white;
+      font-family: 'Nanum Gothic Coding', monospace;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -58,6 +60,12 @@
 
       .btn {
         margin: 5px;
+        width: 200px;
+        text-align: center;
+        font-size: 20px;
+        font-family: 'Nanum Gothic Coding', monospace;
+        background-color: transparent;
+        border: 1px white solid;
       }
     }
   }
