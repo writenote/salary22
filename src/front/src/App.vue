@@ -92,10 +92,13 @@
         key: 0,
         home: true,
         images: [
-          {src: require("../../front/src/assets/businessmen-standing-coins.jpg")},
+          {src: require("../../front/src/assets/businessmen-standing-coins2.jpg")},
           {src: require("../../front/src/assets/coin-tower.jpg")},
           {src: require("../../front/src/assets/red-pencil.jpg")},
           {src: require("../../front/src/assets/working-people.jpg")},
+          {src: require("../../front/src/assets/calculator.jpg")},
+          {src: require("../../front/src/assets/checkcard.jpg")},
+          {src: require("../../front/src/assets/bank-book.jpg")},
         ]
       }
     },
@@ -124,9 +127,20 @@
 </script>
 
 <style lang="scss" scoped>
+  @import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
+  @import url(//fonts.googleapis.com/earlyaccess/kopubbatang.css);
+  @import url(//fonts.googleapis.com/earlyaccess/notosansgothic.css);
+  @font-face { font-family: 'InfinitySans-RegularA1'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/InfinitySans-RegularA1.woff') format('woff'); font-weight: normal; font-style: normal; }
+  @font-face { font-family: 'BBTreeGR'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/BBTreeGR.woff') format('woff'); font-weight: normal; font-style: normal; }
 
   #app {
-    font-family: 'Nanum Gothic Coding', monospace;
+    //font-family: 'Nanum Gothic Coding', monospace;
+    //font-family: 'Jeju Gothic', sans-serif;
+    //font-family: 'KoPub Batang', serif;
+    //font-family: 'Noto Sans Gothic', sans-serif;
+    //font-family: 'InfinitySans-RegularA1';
+    //font-family: 'BBTreeGR';
+    font-family: 'NanumSquare', sans-serif !important;
 
     .home {
       overflow-x: hidden;
@@ -142,7 +156,7 @@
           position: absolute;
           width: 100%;
           height: 100%;
-          background-color: rgba(0, 0, 0, 0.5);
+          background-color: rgba(0, 0, 0, 0.2);
           z-index: 1;
         }
 
@@ -164,7 +178,6 @@
             width: 300px;
             font-size: 40px;
             text-align: center;
-            font-family: 'Nanum Gothic Coding', monospace;
             background-color: transparent;
             border: 3px white solid;
           }

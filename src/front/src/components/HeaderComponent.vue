@@ -62,7 +62,6 @@
         width: 200px;
         text-align: center;
         font-size: 20px;
-        font-family: 'Nanum Gothic Coding', monospace;
         background-color: transparent;
         border: 1px white solid;
       }
