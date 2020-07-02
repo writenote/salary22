@@ -64,7 +64,7 @@
 <style lang="scss" scoped>
 
   .holiday {
-    margin: 100px;
+    margin-top: 100px;
 
     .subject {
       width: 1000px;
@@ -110,7 +110,8 @@
     }
 
     .btnArea {
-      padding-top: 30px;
+      padding-top: 50px;
+      padding-bottom: 50px;
       display: flex;
       width: 100px;
       justify-content: center;
@@ -119,8 +120,10 @@
     }
 
     .resultArea {
-      padding-top: 50px;
-      width: 1000px;
+      background-color: lightgrey;
+      padding: 5% 5% 5% 15%;
+      font-size: large;
+      width: 100vw;
       margin: auto;
       align-items: center;
       justify-content: space-between;

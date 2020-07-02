@@ -21,11 +21,10 @@
 
       <div class="endTime">
         <label for="endTime">종료 시간</label>
-        <datetime type="time" id="endTime" placeholder="시간 선택" class="vdatetime-input"
-                  style="width: 200px; height: 40px;"
+        <datetime type="time" id="endTime" placeholder="시간 선택"
                   value-zone="Asia/Seoul"
                   :minute-step="60"
-                  v-model="endTime"> <!-- class="vdatetime-month-picker"-->
+                  v-model="endTime">
         </datetime>
       </div>
     </div>
@@ -37,9 +36,9 @@
 
     <div class="resultArea" v-show="result">
       <div>
-        <h5>주간근무 {{ daywork }}시간</h5>
-        <h5>야간근무 {{ nightwork }}시간</h5>
-        <h5>하루 총 근무 시간 {{ totalwork }}시간</h5>
+        <h5>주간근무 {{ dayWork }}시간</h5>
+        <h5>야간근무 {{ nightWork }}시간</h5>
+        <h5>하루 총 근무 시간 {{ totalWork }}시간</h5>
         <h5>총 일급은 {{ dailyPay }}원 입니다.</h5>
       </div>
     </div>
@@ -55,13 +54,17 @@
         hourlyWage: null,
         startTime: "",
         endTime: "",
-        dailyTotalTime: 0,
+        dayWork: 0,
+        nightWork: 0,
+        totalWork: 0,
         dailyPay: 0
       }
     },
     methods: {
       calWeeklyPay(hourlyWage, startTime, endTime) {
-        this.dailyTotalTime = 0;
+        this.dayWork = 0;
+        this.nightWork = 0;
+
         if(hourlyWage == null) {
           hourlyWage = 8590;
         } else {
@@ -96,11 +99,12 @@
         var timeMap = new Map();
         for(var i=0; i<=23; i++) {
           if(timeList[i] == Boolean(true)) {
-            this.dailyTotalTime++;
             if(i>=6 && i<=21) {
               timeMap.set(i, hourlyWage);   // 주간 기본 시급
+              this.dayWork++;
             } else {
               timeMap.set(i, (hourlyWage*1.5));   // 야간 수당
+              this.nightWork++;
             }
           }
         }
@@ -109,6 +113,7 @@
         timeMap.forEach(function (value) {
           sum += value;
         });
+        this.totalWork = (this.dayWork + this.nightWork);
         this.dailyPay = sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");;
         this.result = true;
       },
@@ -169,11 +174,6 @@
           margin-left: 0px;
           text-align: left;
         }
-
-        /*.vdatetime-input {*/
-        /*  width: 308px;*/
-        /*  height: 46px;*/
-        /*}*/
       }
 
       .endTime {

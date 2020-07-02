@@ -24,8 +24,8 @@
         <datetime type="time" id="endTime" placeholder="시간 선택"
                   value-zone="Asia/Seoul"
                   :minute-step="60"
-                  v-model="endTime">
-        </datetime>
+                  v-model="endTime">   <!-- class="vdatetime-month-picker"-->
+        </datetime>                    <!-- style="width: 200px; height: 40px;" -->
       </div>
 
       <div class="workingDays">   <!-- 너무 길어서 다른 모듈 찾아보기 -->
@@ -175,7 +175,7 @@
 <style lang="scss" scoped>
 
   .monthly {
-    margin: 100px;
+    margin-top: 100px;
 
     .subject {
       width: 1000px;
@@ -248,7 +248,8 @@
     }
 
     .btnArea {
-      padding-top: 30px;
+      padding-top: 50px;
+      padding-bottom: 50px;
       display: flex;
       width: 100px;
       justify-content: center;
@@ -257,8 +258,10 @@
     }
 
     .resultArea {
-      padding-top: 50px;
-      width: 1000px;
+      background-color: lightgrey;
+      padding: 5% 5% 5% 15%;
+      font-size: large;
+      width: 100vw;
       margin: auto;
       align-items: center;
       justify-content: space-between;

@@ -7,7 +7,7 @@
         <div class="image-cover"></div>
         <div class="subject">
           <h1>급여 계산기</h1>
-          <button @click="goMenu()" class="btn btn-primary">계산하러 가기</button>
+          <button @click="goMenu()" class="btn">계산하러 가기</button>
         </div>
       </div>
 
@@ -16,23 +16,34 @@
         <div class="boxes">
           <div class="box">
             <h2>일급 목록</h2>
-            <h4>매일 근무 시간을 입력하여 일급을 확인하고 월별로 그 누적액을 확인할 수 있습니다.</h4>
+            <img src="../../front/src/assets/icons/notepad.png">
+            <h4>매일 근무 시간을 입력</h4>
+            <h4>날짜별 일급 확인</h4>
+            <h4>월별로 일급 누적액 확인</h4>
           </div>
           <div class="box">
             <h2>일급 계산하기</h2>
-            <h4>하루 근무 시간과 시급을 입력하여 일급을 확인할 수 있습니다. (야간수당 자동 계산)</h4>
+            <img src="../../front/src/assets/icons/clock.png">
+            <h4>하루 근무 시간과 시급 입력</h4>
+            <h4>야간수당이 자동 계산된 일급 확인</h4>
           </div>
           <div class="box">
             <h2>주급 계산하기</h2>
-            <h4>하루 근무 시간과 시급, 주 근무 일수를 입력하여 주휴수당이 포함된 주급을 확인할 수 있습니다.</h4>
+            <img src="../../front/src/assets/icons/calendar.png">
+            <h4>하루 근무 시간과 시급, 주 근무 일수 입력</h4>
+            <h4>주휴수당이 포함된 주급 확인</h4>
           </div>
           <div class="box">
             <h2>월급 계산하기</h2>
-            <h4>하루 근무 시간과 시급, 월 근무 일수를 입력하여 주휴수당이 포함된 월급을 확인할 수 있습니다.</h4>
+            <img src="../../front/src/assets/icons/day.png">
+            <h4>하루 근무 시간과 시급, 월 근무 일수 입력</h4>
+            <h4>주휴수당이 포함된 월급 확인</h4>
           </div>
           <div class="box">
             <h2>주휴수당 계산하기</h2>
-            <h4>주 근무 시간과 시급을 입력하여 주휴수당을 확인할 수 있습니다.</h4>
+            <img src="../../front/src/assets/icons/business-and-finance.png">
+            <h4>주 근무 시간과 시급 입력</h4>
+            <h4>주휴수당 확인</h4>
           </div>
         </div>
       </div>
@@ -40,20 +51,26 @@
       <div class="footer">
         <h3>Footer 내용 입력</h3>
       </div>
+
+<!--      <footer-component/>-->   <!-- 위치 수정 중 -->
+
     </div>
 
-    <div v-else>
+    <div class="else" v-else>
       <header-component/>
 
-      <transition name="component-fade" mode="out-in">
+      <transition class="content" name="component-fade" mode="out-in">
         <router-view :key="key"/>
       </transition>
+
+<!--      <footer-component/>-->   <!-- 위치 수정 중 -->
     </div>
   </div>
 </template>
 
 <script>
   import HeaderComponent from "./components/HeaderComponent";
+  import FooterComponent from "./components/FooterComponent";
   import SalaryList from "./components/SalaryList";
   import AddSalary from "./components/AddSalary";
   import DailyPay from "./components/pay/DailyPay";
@@ -61,12 +78,14 @@
   import MonthlyPay from "./components/pay/MonthlyPay";
   import HolidayPay from "./components/pay/HolidayPay";
   import EventBus from "./js/EventBus";
-  import { EVENT } from "./js/Constants";
+  import {EVENT} from "./js/Constants";
+
   import Vue from "vue";
+  import VueRouter from 'vue-router';
+
   import Datetime from 'vue-datetime';
   import 'vue-datetime/dist/vue-datetime.css';
   import {Settings} from 'luxon';
-  import VueRouter from 'vue-router';
   import FadeImages from 'vue-fade-images'
 
   Vue.use(Datetime);
@@ -75,13 +94,12 @@
   const router = new VueRouter({
     mode: 'history',
     routes: [
-      {path: '/headerComponent', component: HeaderComponent},
       {path: '/list', component: SalaryList},
       {path: '/addSalary', component: AddSalary},
       {path: '/daily', component: DailyPay},
       {path: '/weekly', component: WeeklyPay},
       {path: '/monthly', component: MonthlyPay},
-      {path: '/holiday', component: HolidayPay},
+      {path: '/holiday', component: HolidayPay}
     ]
   });
 
@@ -91,7 +109,7 @@
       return {
         key: 0,
         home: true,
-        images: [
+        images: [   // ----- 사진 고르기 -----
           {src: require("../../front/src/assets/businessmen-standing-coins2.jpg")},
           {src: require("../../front/src/assets/coin-tower.jpg")},
           {src: require("../../front/src/assets/red-pencil.jpg")},
@@ -110,6 +128,7 @@
     router,
     components: {
       HeaderComponent,
+      FooterComponent,
       SalaryList,
       AddSalary,
       DailyPay,
@@ -121,29 +140,19 @@
     methods: {
       goMenu() {
         this.home = false;
-      },
+      }
     }
-  }
+  };
 </script>
 
 <style lang="scss" scoped>
-  @import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
-  @import url(//fonts.googleapis.com/earlyaccess/kopubbatang.css);
-  @import url(//fonts.googleapis.com/earlyaccess/notosansgothic.css);
-  @font-face { font-family: 'InfinitySans-RegularA1'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/InfinitySans-RegularA1.woff') format('woff'); font-weight: normal; font-style: normal; }
-  @font-face { font-family: 'BBTreeGR'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/BBTreeGR.woff') format('woff'); font-weight: normal; font-style: normal; }
 
   #app {
-    //font-family: 'Nanum Gothic Coding', monospace;
-    //font-family: 'Jeju Gothic', sans-serif;
-    //font-family: 'KoPub Batang', serif;
-    //font-family: 'Noto Sans Gothic', sans-serif;
-    //font-family: 'InfinitySans-RegularA1';
-    //font-family: 'BBTreeGR';
-    font-family: 'NanumSquare', sans-serif !important;
+    font-family: 'NanumSquare', sans-serif;
 
     .home {
       overflow-x: hidden;
+      position: relative;
 
       .imageArea {
         width: 100vw;
@@ -153,64 +162,70 @@
         position: relative;
 
         .image-cover {
-          position: absolute;
           width: 100%;
           height: 100%;
           background-color: rgba(0, 0, 0, 0.2);
+          position: absolute;
           z-index: 1;
         }
 
         .subject {
-          position: absolute;
-          text-align: center;
           width: 100%;
           height: 100%;
+          text-align: center;
+          position: absolute;
           z-index: 2;
 
           h1 {
             width: 100vw;
             margin: 15% auto;
+            font-size: 90px;
             color: white;
-            font-size: 80px;
           }
 
           .btn {
             width: 300px;
-            font-size: 40px;
-            text-align: center;
-            background-color: transparent;
             border: 3px white solid;
+            background-color: transparent;
+            text-align: center;
+            font-size: 40px;
+            color: white;
           }
         }
       }
 
-      .intro {
-        background-color: #d3d3d3;
-        padding: 80px;
+      .intro {   // ----- 색깔 정확히 고르기 -----
+        background-color: rgba(253, 199, 67, 0.57);  //rgba(125, 169, 126, 0.48); #76ffd9; rgba(85, 175, 146, 0.61);
+        //rgb(253, 199, 67); rgba(253, 199, 67, 0.61);
+        padding: 120px 60px;
+        align-items: center;
         text-align: center;
-        //display: flex;   // 옆으로 나란히
-        align-items: center;   // 위아래 중앙
-        //justify-content: center;   // 화면 중앙
 
         .boxes {
+          margin-top: 30px;
           display: flex;
-          justify-content: center;
-          text-align: center;
 
           .box {
-            margin: 30px;
-            padding: 25px;
-            width: 430px;
+            width: 470px;
             height: 450px;
-            border-radius: 20px;
+            margin: 20px;
+            padding: 25px;
             background-color: white;
+            border-radius: 20px;
 
             h2 {
+              margin: 8px 0px;
               font-weight: bold;
             }
 
-            h4 {
-              margin-top: 20px;
+            img {
+              width: 130px;
+              height: 130px;
+              margin: 30px;
+            }
+
+            h4 {   // ----- 글자 크기 및 줄 넘어가는 거 조정 -----
+              margin-top: 15px;
             }
           }
         }
@@ -225,6 +240,14 @@
         }
       }
     }
+
+    /*.else {*/
+
+    /*  .content {*/
+    /*    flex: 1;*/
+    /*    position: relative;*/
+    /*  }*/
+    /*}*/
   }
 
   .component-fade-leave-active {
