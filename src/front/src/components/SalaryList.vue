@@ -1,10 +1,12 @@
 <template>
   <div class="salaryList">
     <div class="header">
-      <div>
-        <h3>{{ selectedDate.year }}년 {{ selectedDate.month }}월 일급 총 누적액 {{ dailyTotal }}원</h3>
+      <div class="total">
+        <h3>{{ selectedDate.year }}년 {{ selectedDate.month }}월</h3>
+        <h3>일급 총 누적액 {{ dailyTotal }}원</h3>
       </div>
-      <div>
+      <div class="empty"></div>
+      <div class="button">
         <div class="input" @click="refreshRouterView()">
           <router-link class="btn btn-primary" to="/addSalary">근무 시간 입력</router-link>
         </div>
@@ -36,7 +38,6 @@
           <button @click="getDailyWages()" class="btn btn-success">검색</button>
         </div>
       </div>
-
     </div>
     <div class="list">
       <h6>※ 22:00 ~ 06:00 사이 근무 시, 야간수당(시급의 1.5배)이 적용됩니다.</h6>
@@ -60,7 +61,7 @@
           <td>{{ daily.endTime }}</td>
           <td>{{ daily.totalTime }}시간</td>
           <td>{{ formatWage(daily.hourlyWage) }}원</td>
-          <td>{{ formatWage(daily.dailyWage) }}원</td>
+          <td><h5>{{ formatWage(daily.dailyWage) }}원</h5></td>
           <td>
             <button @click="deleteRow(daily.id)" class="btn btn-danger"><h4>&#x00D7;</h4></button>
           </td>
@@ -182,14 +183,55 @@
     margin: 100px;
 
     .header {
-      width: 1000px;
+      width: 60%;
       margin: auto;
       display: flex;
-      align-items: center;
-      justify-content: space-between;
+      //text-align: center;
+      //align-items: center;
+      //justify-content: space-between;
+      //justify-content: center;
+      //margin-right: 0px;
 
-      .input {
-        margin-left: 180px;
+      .total {
+        width: 420px;
+      }
+
+      .empty {
+        width: 500px;
+      }
+
+      .button {
+        width: 290px;
+        right: 0px;
+        text-align: right;
+        //float: right;
+        //display: flex;
+        //justify-content: flex-end;
+
+        .input {
+          margin-bottom: 8px;
+          //margin-left: 180px;
+        }
+
+        .search {
+          border-top: 3px solid #168;
+          display: flex;
+          align-items: center;
+
+          b-dropdown {
+            .m-2 {
+              width: 70px;
+              //margin: 3px 0px 0px 3px;
+            }
+          }
+          .btn {
+            //font-size: 18px;
+            width: 75px;
+            margin-left: 7px;
+          }
+          //justify-content: right;
+          //text-align: right;
+        }
       }
     }
 
@@ -199,7 +241,7 @@
       h6 {
         text-align: right;
         color: red;
-        margin: auto;
+        margin: 3px auto;
         width: 1200px;
       }
 
@@ -229,7 +271,14 @@
           text-align: center;
           height: 50px;
 
+          h5 {
+            margin-bottom: 0;
+            color: #298861;
+            font-weight: bold;
+          }
+
           .btn {
+            width: 40px;
             background-color: #ff6a46;
             border: #ff6a46;
             margin: 0;
@@ -239,6 +288,7 @@
               color: white;
               margin: 0;
               padding: 0;
+              align-items: center;
             }
           }
         }
