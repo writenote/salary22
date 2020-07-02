@@ -63,7 +63,10 @@
         <router-view :key="key"/>
       </transition>
 
-<!--      <footer-component/>-->   <!-- 위치 수정 중 -->
+<!--      <footer-component/>    -->   <!-- 위치 수정 중 -->
+      <div class="footer">             <!-- 헤더로 들어올 때 바닥에 붙게 -->
+        <h3>Footer 내용 입력</h3>
+      </div>
     </div>
   </div>
 </template>
@@ -86,7 +89,7 @@
   import Datetime from 'vue-datetime';
   import 'vue-datetime/dist/vue-datetime.css';
   import {Settings} from 'luxon';
-  import FadeImages from 'vue-fade-images'
+  import FadeImages from 'vue-fade-images';
 
   Vue.use(Datetime);
   Settings.defaultLocale = 'ko';
@@ -232,9 +235,27 @@
       }
 
       .footer {
+        height: 180px;
         background-color: #969696;
+        padding: 40px;
 
         h3 {
+          margin: 0;
+          padding: 30px;
+          color: white;
+        }
+      }
+    }
+
+    .else {
+
+      .footer {
+        height: 180px;
+        background-color: #969696;
+        padding: 40px;
+
+        h3 {
+          margin: 0;
           padding: 30px;
           color: white;
         }

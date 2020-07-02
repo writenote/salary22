@@ -7,7 +7,7 @@
 <script>
   export default {
     name: "FooterComponent",
-
+  }
 </script>
 
 <style lang="scss" scoped>
@@ -16,7 +16,7 @@
     background-color: #969696;
     position: absolute;
     width: 100%;
-    height: 10%;
+    //height: 10%;
     bottom: 0;
 
     h3 {

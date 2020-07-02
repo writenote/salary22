@@ -43,6 +43,15 @@
           </b-dropdown-item>
         </b-dropdown>
       </div>
+
+<!--      <div>-->
+<!--        <number-picker-->
+<!--          :value="quantity"-->
+<!--          :min="1"-->
+<!--          :max="10"-->
+<!--          @update="updateQuantity">-->
+<!--        </number-picker>-->
+<!--      </div>-->
     </div>
 
     <div class="btnArea">

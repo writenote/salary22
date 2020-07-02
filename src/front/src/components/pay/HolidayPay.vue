@@ -77,7 +77,9 @@
     .inputForm {
       justify-content: center;   // 화면 중앙
       text-align: center;
+      padding: 50px 0px;
       max-width: 500px;
+      min-height: 250px;
       margin: auto;
 
       .weeklyTotalTimeForm {
