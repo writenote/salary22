@@ -88,6 +88,7 @@
         this.days = this.selectedDays;
       },
       calMonthlyPay(hourlyWage, startTime, endTime, days) {
+        this.dailyTotalTime = 0;
 
         if(hourlyWage == null) {
           hourlyWage = 8590;

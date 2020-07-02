@@ -21,10 +21,11 @@
 
       <div class="endTime">
         <label for="endTime">종료 시간</label>
-        <datetime type="time" id="endTime" placeholder="시간 선택"
+        <datetime type="time" id="endTime" placeholder="시간 선택" class="vdatetime-input"
+                  style="width: 200px; height: 40px;"
                   value-zone="Asia/Seoul"
                   :minute-step="60"
-                  v-model="endTime">
+                  v-model="endTime"> <!-- class="vdatetime-month-picker"-->
         </datetime>
       </div>
     </div>
@@ -54,15 +55,13 @@
         hourlyWage: null,
         startTime: "",
         endTime: "",
-        daywork: 0,
-        nightwork: 0,
-        totalwork: 0,
+        dailyTotalTime: 0,
         dailyPay: 0
       }
     },
     methods: {
       calWeeklyPay(hourlyWage, startTime, endTime) {
-
+        this.dailyTotalTime = 0;
         if(hourlyWage == null) {
           hourlyWage = 8590;
         } else {
@@ -97,12 +96,11 @@
         var timeMap = new Map();
         for(var i=0; i<=23; i++) {
           if(timeList[i] == Boolean(true)) {
+            this.dailyTotalTime++;
             if(i>=6 && i<=21) {
               timeMap.set(i, hourlyWage);   // 주간 기본 시급
-              this.daywork++;
             } else {
               timeMap.set(i, (hourlyWage*1.5));   // 야간 수당
-              this.nightwork++;
             }
           }
         }
@@ -111,7 +109,6 @@
         timeMap.forEach(function (value) {
           sum += value;
         });
-        this.totalwork = (this.daywork + this.nightwork);
         this.dailyPay = sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");;
         this.result = true;
       },
@@ -172,6 +169,11 @@
           margin-left: 0px;
           text-align: left;
         }
+
+        /*.vdatetime-input {*/
+        /*  width: 308px;*/
+        /*  height: 46px;*/
+        /*}*/
       }
 
       .endTime {

@@ -86,6 +86,8 @@
       },
       calWeeklyPay(hourlyWage, startTime, endTime, days) {
 
+        this.dailyTotalTime = 0;
+
         if(hourlyWage == null) {
           hourlyWage = 8590;
         } else {
@@ -142,7 +144,7 @@
           this.holidayPay = 8 * hourlyWage;
         }
 
-        this.weeklyPay = this.basicDailyPay + this.holidayPay;
+        this.weeklyPay = parseInt(this.basicDailyPay) + parseInt(this.holidayPay);
         this.dailyPay = sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         this.basicDailyPay = this.basicDailyPay.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         this.holidayPay = this.holidayPay.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
