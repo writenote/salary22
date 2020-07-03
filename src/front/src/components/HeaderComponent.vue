@@ -30,9 +30,9 @@
   export default {
     name: "HeaderComponent",
     methods: {
-        refreshRouterView() {
-          EventBus.$emit(EVENT.REFRESH_ROUTER_VIEW);
-        }
+      refreshRouterView() {
+        EventBus.$emit(EVENT.REFRESH_ROUTER_VIEW);
+      }
     }
   };
 </script>
@@ -41,9 +41,8 @@
 
   .headerComponent {
     min-width: 1000px;
-    //height: 350px;
     height: 350px;
-    background-color: #A5D6A7;        //#fff277;
+    background-color: #A5D6A7; // rgba(28, 74, 115, 0.31); rgba(84, 180, 149, 0.51);
 
     .subject {
       color: white;

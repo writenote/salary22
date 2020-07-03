@@ -93,7 +93,6 @@
           margin: auto;
           text-align: left;
         }
-
       }
 
       .hourlyWageForm {
@@ -107,7 +106,6 @@
           margin: auto;
           text-align: left;
         }
-
       }
     }
 
