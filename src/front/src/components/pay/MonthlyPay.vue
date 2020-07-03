@@ -28,25 +28,9 @@
                   :minute-step="60"
                   :input-style="'width: 375px; border: transparent'"
                   class="form-control"
-                  v-model="endTime">   <!-- class="vdatetime-month-picker"-->
-        </datetime>                    <!-- style="width: 200px; height: 40px;" -->
+                  v-model="endTime">
+        </datetime>
       </div>
-
-<!--      <div class="workingDays">   &lt;!&ndash; 너무 길어서 다른 모듈 찾아보기 &ndash;&gt;-->
-<!--        <label>월 근무 일수</label>-->
-<!--        <b-dropdown-->
-<!--          id="workingDays" class="m-2" required-->
-<!--          :text="selectedDays"-->
-<!--          v-model="days"-->
-<!--        >-->
-<!--          <b-dropdown-item-->
-<!--            v-for="days in daysList" :key="days.id"-->
-<!--            @click="selectDays(days)"-->
-<!--          >-->
-<!--            {{ days }}-->
-<!--          </b-dropdown-item>-->
-<!--        </b-dropdown>-->
-<!--      </div>-->
 
       <div class="workingDays">
         <label for="quantity">월 근무 일수</label>
@@ -58,21 +42,11 @@
           <p>※ 1부터 31까지만 입력됩니다.</p>
         </div>
       </div>
-
-<!--      <div>-->
-<!--        <number-picker-->
-<!--          :value="quantity"-->
-<!--          :min="1"-->
-<!--          :max="10"-->
-<!--          @update="updateQuantity">-->
-<!--        </number-picker>-->
-<!--      </div>-->
     </div>
 
     <div class="btnArea">
       <button @click="calMonthlyPay(hourlyWage, startTime, endTime, days)" class="btn btn-success">계산하기</button>
     </div>
-
 
     <div class="resultArea" v-show="result">
       <h5>월 총 근무시간은 하루 {{ dailyTotalTime }}시간 X {{ days }}일로 총 {{ monthlyTotalTime }}시간입니다.</h5>
@@ -101,16 +75,9 @@
         basicDailyPay: 0,
         holidayPay: 0,
         holidayTotalPay: 0,
-        selectedDays: '근무 일수 선택',
-        daysList: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15',
-              '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31']
       }
     },
     methods: {
-      // selectDays(selectedItem) {
-      //   this.selectedDays = selectedItem;
-      //   this.days = this.selectedDays;
-      // },
       calMonthlyPay(hourlyWage, startTime, endTime, days) {
         this.dailyTotalTime = 0;
 
@@ -179,19 +146,9 @@
         this.holidayPay = this.holidayPay.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         this.holidayTotalPay = this.holidayTotalPay.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         this.monthlyPay = this.monthlyPay.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        // this.formatPay(this.dailyPay);
-        // this.formatPay(this.basicDailyPay);
-        // this.formatPay(this.holidayPay);
-        // this.formatPay(this.weeklyPay);
 
         this.result = true;
       },
-      formatPay(pay) {
-        pay = pay.toString()
-          .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-
-        return pay;
-      }
     }
   }
 </script>
@@ -239,10 +196,6 @@
           min-width: 100px;
           margin-left: 0px;
           text-align: left;
-        }
-
-        dateTime {
-          //width: 500px;
         }
       }
 

@@ -51,23 +51,17 @@
       <div class="footer">
         <h4>Made by Seung Min, Han Sol</h4>
       </div>
-
-      <!--      <footer-component/>-->   <!-- 위치 수정 중 -->
-
     </div>
 
     <div class="else" v-else>
       <header-component/>
+      <div class="empty" v-if="empty"></div>
 
-      <div class="empty" v-if="empty">
-
-      </div>
       <transition class="content" name="component-fade" mode="out-in">
         <router-view :key="key"/>
       </transition>
 
-      <!--      <footer-component/>    -->   <!-- 위치 수정 중 -->
-      <div class="footer">             <!-- 헤더로 들어올 때 바닥에 붙게 -->
+      <div class="footer">
         <h4>Made by Seung Min, Han Sol</h4>
       </div>
     </div>
@@ -200,9 +194,8 @@
         }
       }
 
-      .intro {   // ----- 색깔 정확히 고르기 -----
-        background-color: rgba(253, 199, 67, 0.57);  //rgba(125, 169, 126, 0.48); #76ffd9; rgba(85, 175, 146, 0.61);
-        //rgb(253, 199, 67); rgba(253, 199, 67, 0.61);
+      .intro {
+        background-color: rgba(253, 199, 67, 0.57);
         padding: 120px 60px;
         align-items: center;
         text-align: center;
@@ -230,7 +223,7 @@
               margin: 30px;
             }
 
-            h4 {   // ----- 글자 크기 및 줄 넘어가는 거 조정 -----
+            h4 {
               margin-top: 15px;
             }
           }
@@ -270,14 +263,6 @@
         }
       }
     }
-
-    /*.else {*/
-
-    /*  .content {*/
-    /*    flex: 1;*/
-    /*    position: relative;*/
-    /*  }*/
-    /*}*/
   }
 
   .component-fade-leave-active {

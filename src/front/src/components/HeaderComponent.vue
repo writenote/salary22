@@ -21,10 +21,6 @@
       </div>
     </nav>
   </div>
-
-<!--  <div class="empty" v-else-if="empty">-->
-
-<!--  </div>-->
 </template>
 
 <script>
@@ -33,16 +29,10 @@
 
   export default {
     name: "HeaderComponent",
-    data() {
-      return {
-        empty: true
-      }
-    },
     methods: {
-        refreshRouterView() {
-          EventBus.$emit(EVENT.REFRESH_ROUTER_VIEW);
-          this.empty = false;
-        }
+      refreshRouterView() {
+        EventBus.$emit(EVENT.REFRESH_ROUTER_VIEW);
+      }
     }
   };
 </script>
@@ -51,9 +41,8 @@
 
   .headerComponent {
     min-width: 1000px;
-    //height: 350px;
     height: 350px;
-    background-color: #A5D6A7;        //#fff277;
+    background-color: #A5D6A7;
 
     .subject {
       color: white;
@@ -77,9 +66,5 @@
         border: 1px white solid;
       }
     }
-  }
-
-  .empty {
-    min-height: 500px;
   }
 </style>
