@@ -127,7 +127,6 @@
 
   #app {
     font-family: 'Nanum Gothic Coding', monospace;
-    font-family: 'NanumSquare', sans-serif !important;
 
     .home {
       overflow-x: hidden;
