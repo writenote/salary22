@@ -42,7 +42,7 @@
   .headerComponent {
     min-width: 1000px;
     height: 350px;
-    background-color: #A5D6A7;
+    background-color: #A5D6A7; // rgba(28, 74, 115, 0.31); rgba(84, 180, 149, 0.51);
 
     .subject {
       color: white;

@@ -238,6 +238,10 @@
           margin-left: 0px;
           text-align: left;
         }
+
+        .m-2 {
+          margin: 0px;  // 수정 필요
+        }
       }
     }
 
