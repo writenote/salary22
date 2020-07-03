@@ -210,6 +210,7 @@
         font-size: 30px;
         background-color: transparent;
         border: 2px white solid;
+        padding: 10px;
       }
     }
   }
