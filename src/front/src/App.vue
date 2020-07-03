@@ -25,19 +25,19 @@
             <h2>일급 계산하기</h2>
             <img src="../../front/src/assets/icons/clock.png">
             <h4>하루 근무 시간과 시급 입력</h4>
-            <h4>야간수당이 자동 계산된 일급 확인</h4>
+            <h4>야간수당이 자동 계산된<br> 일급 확인</h4>
           </div>
           <div class="box">
             <h2>주급 계산하기</h2>
             <img src="../../front/src/assets/icons/calendar.png">
-            <h4>하루 근무 시간과 시급, 주 근무 일수 입력</h4>
-            <h4>주휴수당이 포함된 주급 확인</h4>
+            <h4>하루 근무 시간과 시급,<br> 주 근무 일수 입력</h4>
+            <h4>주휴수당이 포함된<br> 주급 확인</h4>
           </div>
           <div class="box">
             <h2>월급 계산하기</h2>
             <img src="../../front/src/assets/icons/day.png">
-            <h4>하루 근무 시간과 시급, 월 근무 일수 입력</h4>
-            <h4>주휴수당이 포함된 월급 확인</h4>
+            <h4>하루 근무 시간과 시급,<br> 월 근무 일수 입력</h4>
+            <h4>주휴수당이 포함된<br> 월급 확인</h4>
           </div>
           <div class="box">
             <h2>주휴수당 계산하기</h2>
@@ -49,23 +49,20 @@
       </div>
 
       <div class="footer">
-        <h3>Footer 내용 입력</h3>
+        <h4>Made by Seung Min, Han Sol</h4>
       </div>
-
-      <!--      <footer-component/>-->   <!-- 위치 수정 중 -->
-
     </div>
 
     <div class="else" v-else>
       <header-component/>
+      <div class="empty" v-if="empty"></div>
 
       <transition class="content" name="component-fade" mode="out-in">
         <router-view :key="key"/>
       </transition>
 
-      <!--      <footer-component/>    -->   <!-- 위치 수정 중 -->
-      <div class="footer">             <!-- 헤더로 들어올 때 바닥에 붙게 -->
-        <h3>Footer 내용 입력</h3>
+      <div class="footer">
+        <h4>Made by Seung Min, Han Sol</h4>
       </div>
     </div>
   </div>
@@ -113,19 +110,19 @@
         key: 0,
         home: true,
         images: [   // ----- 사진 고르기 -----
-          {src: require("../../front/src/assets/businessmen-standing-coins2.jpg")},
-          {src: require("../../front/src/assets/coin-tower.jpg")},
           {src: require("../../front/src/assets/red-pencil.jpg")},
           {src: require("../../front/src/assets/working-people.jpg")},
           {src: require("../../front/src/assets/calculator.jpg")},
           {src: require("../../front/src/assets/checkcard.jpg")},
           {src: require("../../front/src/assets/bank-book.jpg")},
-        ]
+        ],
+        empty: true
       }
     },
     created() {
       EventBus.$on(EVENT.REFRESH_ROUTER_VIEW, () => {
         this.key++;
+        this.empty = false;
       });
     },
     router,
@@ -167,7 +164,7 @@
         .image-cover {
           width: 100%;
           height: 100%;
-          background-color: rgba(0, 0, 0, 0.2);
+          background-color: rgba(155, 114, 41, 0.31);
           position: absolute;
           z-index: 1;
         }
@@ -197,9 +194,8 @@
         }
       }
 
-      .intro {   // ----- 색깔 정확히 고르기 -----
-        background-color: rgba(253, 199, 67, 0.57);  //rgba(125, 169, 126, 0.48); #76ffd9; rgba(85, 175, 146, 0.61);
-        //rgb(253, 199, 67); rgba(253, 199, 67, 0.61);
+      .intro {
+        background-color: rgba(253, 199, 67, 0.57);
         padding: 120px 60px;
         align-items: center;
         text-align: center;
@@ -227,7 +223,7 @@
               margin: 30px;
             }
 
-            h4 {   // ----- 글자 크기 및 줄 넘어가는 거 조정 -----
+            h4 {
               margin-top: 15px;
             }
           }
@@ -235,40 +231,38 @@
       }
 
       .footer {
-        height: 180px;
-        background-color: #969696;
+        height: 170px;
+        background-color: #123f5a;
         padding: 40px;
 
-        h3 {
+        h4 {
           margin: 0;
           padding: 30px;
           color: white;
+          text-align: right;
         }
       }
     }
 
     .else {
 
+      .empty {
+        min-height: 500px;
+      }
+
       .footer {
-        height: 180px;
-        background-color: #969696;
+        height: 170px;
+        background-color: #123f5a;
         padding: 40px;
 
-        h3 {
+        h4 {
           margin: 0;
           padding: 30px;
           color: white;
+          text-align: right;
         }
       }
     }
-
-    /*.else {*/
-
-    /*  .content {*/
-    /*    flex: 1;*/
-    /*    position: relative;*/
-    /*  }*/
-    /*}*/
   }
 
   .component-fade-leave-active {

@@ -2,8 +2,8 @@
   <div class="salaryList">
     <div class="header">
       <div class="total">
-        <h3>{{ selectedDate.year }}년 {{ selectedDate.month }}월</h3>
-        <h3>일급 총 누적액 {{ dailyTotal }}원</h3>
+        <h3>{{ selectedDate.year }}년 {{ selectedDate.month }}월 일급 총 누적액</h3>
+        <h3 style="text-align: center"><u>{{ dailyTotal }}원</u></h3>
       </div>
       <div class="empty"></div>
       <div class="button">
@@ -181,6 +181,7 @@
 
   .salaryList {
     margin: 100px;
+    //min-height: 500px;
 
     .header {
       width: 60%;
@@ -214,7 +215,7 @@
         }
 
         .search {
-          border-top: 3px solid #168;
+          border-top: 2px solid #168;
           display: flex;
           align-items: center;
 
