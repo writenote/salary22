@@ -12,19 +12,23 @@
       <div class="dateTimePicker">
         <div class="startTime">
           <label for="startTime">시작 시간</label>
-          <datetime type="datetime" class="form-control" id="startTime"
+          <datetime type="datetime" id="startTime"
                     v-model="salary.startTime" placeholder="날짜 선택"
                     value-zone="Asia/Seoul"
                     :minute-step="60"
+                    :input-style="'width: 375px; border: transparent'"
+                    class="form-control"
           ></datetime>
         </div>
 
         <div class="endTime">
           <label for="endTime">종료 시간</label>
-          <datetime type="datetime" class="form-control" id="endTime"
+          <datetime type="datetime" id="endTime"
                     v-model="salary.endTime" placeholder="날짜 선택"
                     value-zone="Asia/Seoul"
                     :minute-step="60"
+                    :input-style="'width: 375px; border: transparent'"
+                    class="form-control"
           ></datetime>
         </div>
       </div>
@@ -32,7 +36,7 @@
       <button @click="addRow" class="btn btn-success">등록</button>
     </div>
 
-    <div v-else>
+    <div class="submitted" v-else>
       <h4>근무시간이 등록되었습니다.</h4>
       <router-link to="/list">
         <button class="btn btn-success">목록 확인</button>
@@ -134,11 +138,13 @@
       }
     }
 
-    div {
+    div > .btn{
+      margin: 100px;
+    }
 
-      .btn {
-        margin: 100px;
-      }
+    .submitted {
+      padding-top: 100px;
+      min-height: 500px;
     }
   }
 </style>
