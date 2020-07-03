@@ -35,10 +35,10 @@
 
 
     <div class="resultArea" v-show="result">
-      <div>
-        <h5>주간근무 {{ daywork }}시간</h5>
-        <h5>야간근무 {{ nightwork }}시간</h5>
-        <h5>하루 총 근무 시간 {{ totalwork }}시간</h5>
+      <div class="area">
+        <h5>주간근무 {{ dayWork }}시간</h5>
+        <h5>야간근무 {{ nightWork }}시간</h5>
+        <h5>하루 총 근무 시간 {{ totalWork }}시간</h5>
         <h5>총 일급은 {{ dailyPay }}원 입니다.</h5>
       </div>
     </div>
@@ -54,14 +54,16 @@
         hourlyWage: null,
         startTime: "",
         endTime: "",
-        daywork: 0,
-        nightwork: 0,
-        totalwork: 0,
+        dayWork: 0,
+        nightWork: 0,
+        totalWork: 0,
         dailyPay: 0
       }
     },
     methods: {
       calWeeklyPay(hourlyWage, startTime, endTime) {
+        this.dayWork = 0;
+        this.nightWork = 0;
 
         if(hourlyWage == null) {
           hourlyWage = 8590;
@@ -99,10 +101,10 @@
           if(timeList[i] == Boolean(true)) {
             if(i>=6 && i<=21) {
               timeMap.set(i, hourlyWage);   // 주간 기본 시급
-              this.daywork++;
+              this.dayWork++;
             } else {
               timeMap.set(i, (hourlyWage*1.5));   // 야간 수당
-              this.nightwork++;
+              this.nightWork++;
             }
           }
         }
@@ -111,7 +113,7 @@
         timeMap.forEach(function (value) {
           sum += value;
         });
-        this.totalwork = (this.daywork + this.nightwork);
+        this.totalWork = (this.dayWork + this.nightWork);
         this.dailyPay = sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");;
         this.result = true;
       },
@@ -206,6 +208,14 @@
       margin: auto;
       align-items: center;
       justify-content: space-between;
+
+      .area {
+        width: 500px;
+        margin-left: 30px;
+        font-size: 30px;
+        background-color: transparent;
+        border: 2px white solid;
+      }
     }
   }
 </style>
