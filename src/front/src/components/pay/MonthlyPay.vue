@@ -15,6 +15,8 @@
         <datetime type="time" id="startTime" placeholder="시간 선택"
                   value-zone="Asia/Seoul"
                   :minute-step="60"
+                  :input-style="'width: 375px; border: transparent'"
+                  class="form-control"
                   v-model="startTime">  <!--class="theme-orange"-->
         </datetime>
       </div>
@@ -24,24 +26,37 @@
         <datetime type="time" id="endTime" placeholder="시간 선택"
                   value-zone="Asia/Seoul"
                   :minute-step="60"
+                  :input-style="'width: 375px; border: transparent'"
+                  class="form-control"
                   v-model="endTime">   <!-- class="vdatetime-month-picker"-->
         </datetime>                    <!-- style="width: 200px; height: 40px;" -->
       </div>
 
-      <div class="workingDays">   <!-- 너무 길어서 다른 모듈 찾아보기 -->
-        <label>월 근무 일수</label>
-        <b-dropdown
-          id="workingDays" class="m-2" required
-          :text="selectedDays"
-          v-model="days"
-        >
-          <b-dropdown-item
-            v-for="days in daysList" :key="days.id"
-            @click="selectDays(days)"
-          >
-            {{ days }}
-          </b-dropdown-item>
-        </b-dropdown>
+<!--      <div class="workingDays">   &lt;!&ndash; 너무 길어서 다른 모듈 찾아보기 &ndash;&gt;-->
+<!--        <label>월 근무 일수</label>-->
+<!--        <b-dropdown-->
+<!--          id="workingDays" class="m-2" required-->
+<!--          :text="selectedDays"-->
+<!--          v-model="days"-->
+<!--        >-->
+<!--          <b-dropdown-item-->
+<!--            v-for="days in daysList" :key="days.id"-->
+<!--            @click="selectDays(days)"-->
+<!--          >-->
+<!--            {{ days }}-->
+<!--          </b-dropdown-item>-->
+<!--        </b-dropdown>-->
+<!--      </div>-->
+
+      <div class="workingDays">
+        <label for="quantity">월 근무 일수</label>
+        <div>
+          <input type="number" id="quantity" name="quantity" min="1" max="31"
+                 placeholder="근무 일수 입력"
+                 class="form-control"
+                 v-model="days">
+          <p>※ 1부터 31까지만 입력됩니다.</p>
+        </div>
       </div>
 
 <!--      <div>-->
@@ -92,10 +107,10 @@
       }
     },
     methods: {
-      selectDays(selectedItem) {
-        this.selectedDays = selectedItem;
-        this.days = this.selectedDays;
-      },
+      // selectDays(selectedItem) {
+      //   this.selectedDays = selectedItem;
+      //   this.days = this.selectedDays;
+      // },
       calMonthlyPay(hourlyWage, startTime, endTime, days) {
         this.dailyTotalTime = 0;
 
@@ -252,6 +267,15 @@
           min-width: 100px;
           margin-left: 0px;
           text-align: left;
+        }
+
+        div > p {
+          font-size: small;
+          text-align: left;
+          color: red;
+          margin: 3px auto;
+          width: 402px;
+
         }
       }
     }

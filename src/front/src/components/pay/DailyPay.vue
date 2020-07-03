@@ -6,7 +6,7 @@
     <div class="inputForm">
       <div class="hourlyWageForm">
         <label for="hourlyWage">시급</label>
-        <input type="text" class="form" placeholder="최저시급 8,590원" id="hourlyWage"
+        <input type="text" class="form-control" placeholder="최저시급 8,590원" id="hourlyWage"
                v-model="hourlyWage"/>
       </div>
 
@@ -15,6 +15,8 @@
         <datetime type="time" id="startTime" placeholder="시간 선택"
                   value-zone="Asia/Seoul"
                   :minute-step="60"
+                  :input-style="'width: 375px; border: transparent'"
+                  class="form-control"
                   v-model="startTime">
         </datetime>
       </div>
@@ -24,6 +26,8 @@
         <datetime type="time" id="endTime" placeholder="시간 선택"
                   value-zone="Asia/Seoul"
                   :minute-step="60"
+                  :input-style="'width: 375px; border: transparent'"
+                  class="form-control"
                   v-model="endTime">
         </datetime>
       </div>
@@ -151,15 +155,6 @@
           min-width: 100px;
           margin-left: 0px;
           text-align: left;
-        }
-
-        .form {
-          padding: 1px 3px;
-          width: 187px;
-          height: 30px;
-          border: 1px #626e7a solid;
-          border-radius: 3px;
-          // 186.13 29.47
         }
 
       }

@@ -181,6 +181,7 @@
 
   .salaryList {
     margin: 100px;
+    //min-height: 500px;
 
     .header {
       width: 60%;
@@ -214,7 +215,7 @@
         }
 
         .search {
-          border-top: 3px solid #168;
+          border-top: 2px solid #168;
           display: flex;
           align-items: center;
 

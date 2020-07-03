@@ -15,6 +15,8 @@
         <datetime type="time" id="startTime" placeholder="시간 선택"
                   value-zone="Asia/Seoul"
                   :minute-step="60"
+                  :input-style="'width: 375px; border: transparent'"
+                  class="form-control"
                   v-model="startTime">  <!--class="theme-orange"-->
         </datetime>
       </div>
@@ -24,6 +26,8 @@
         <datetime type="time" id="endTime" placeholder="시간 선택"
                   value-zone="Asia/Seoul"
                   :minute-step="60"
+                  :input-style="'width: 375px; border: transparent'"
+                  class="form-control"
                   v-model="endTime">
         </datetime>
       </div>

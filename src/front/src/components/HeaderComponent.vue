@@ -21,6 +21,10 @@
       </div>
     </nav>
   </div>
+
+<!--  <div class="empty" v-else-if="empty">-->
+
+<!--  </div>-->
 </template>
 
 <script>
@@ -29,9 +33,15 @@
 
   export default {
     name: "HeaderComponent",
+    data() {
+      return {
+        empty: true
+      }
+    },
     methods: {
         refreshRouterView() {
           EventBus.$emit(EVENT.REFRESH_ROUTER_VIEW);
+          this.empty = false;
         }
     }
   };
@@ -67,5 +77,9 @@
         border: 1px white solid;
       }
     }
+  }
+
+  .empty {
+    min-height: 500px;
   }
 </style>
