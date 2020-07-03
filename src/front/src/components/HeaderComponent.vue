@@ -25,7 +25,7 @@
 
 <script>
   import EventBus from "../js/EventBus";
-  import { EVENT } from "../js/Constants";
+  import {EVENT} from "../js/Constants";
 
   export default {
     name: "HeaderComponent",
@@ -34,14 +34,15 @@
           EventBus.$emit(EVENT.REFRESH_ROUTER_VIEW);
         }
     }
-  }
+  };
 </script>
 
 <style lang="scss" scoped>
 
   .headerComponent {
     min-width: 1000px;
-    height: 400px;
+    //height: 350px;
+    height: 350px;
     background-color: #A5D6A7;        //#fff277;
 
     .subject {
@@ -49,7 +50,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 300px;
+      height: 250px;
     }
 
     nav {
@@ -62,7 +63,6 @@
         width: 200px;
         text-align: center;
         font-size: 20px;
-        font-family: 'Nanum Gothic Coding', monospace;
         background-color: transparent;
         border: 1px white solid;
       }

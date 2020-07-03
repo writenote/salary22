@@ -86,6 +86,8 @@
       },
       calWeeklyPay(hourlyWage, startTime, endTime, days) {
 
+        this.dailyTotalTime = 0;
+
         if(hourlyWage == null) {
           hourlyWage = 8590;
         } else {
@@ -142,7 +144,7 @@
           this.holidayPay = 8 * hourlyWage;
         }
 
-        this.weeklyPay = this.basicDailyPay + this.holidayPay;
+        this.weeklyPay = parseInt(this.basicDailyPay) + parseInt(this.holidayPay);
         this.dailyPay = sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         this.basicDailyPay = this.basicDailyPay.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         this.holidayPay = this.holidayPay.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -167,7 +169,7 @@
 <style lang="scss" scoped>
 
   .weekly {
-    margin: 100px;
+    margin-top: 100px;
 
     .subject {
       width: 1000px;
@@ -236,7 +238,8 @@
     }
 
     .btnArea {
-      padding-top: 30px;
+      padding-top: 50px;
+      padding-bottom: 50px;
       display: flex;
       width: 100px;
       justify-content: center;
@@ -245,8 +248,10 @@
     }
 
     .resultArea {
-      padding-top: 50px;
-      width: 1000px;
+      background-color: lightgrey;
+      padding: 5% 5% 5% 15%;
+      font-size: large;
+      width: 100vw;
       margin: auto;
       align-items: center;
       justify-content: space-between;
