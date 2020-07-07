@@ -43,7 +43,7 @@
         <h5>주간근무 {{ dayWork }}시간</h5>
         <h5>야간근무 {{ nightWork }}시간</h5>
         <h5>하루 총 근무 시간 {{ totalWork }}시간</h5>
-        <h5>총 일급은 {{ dailyPay }}원 입니다.</h5>
+        <h3>총 일급은 <u>{{ dailyPay }}원</u> 입니다.</h3>
       </div>
     </div>
   </div>
@@ -206,11 +206,16 @@
 
       .area {
         width: 500px;
-        margin-left: 30px;
+        margin-right: 80px;
+        margin: auto;
         font-size: 30px;
         background-color: transparent;
         border: 2px white solid;
         padding: 10px;
+
+        justify-content: center;
+        align-items: center;
+        text-align: center;
       }
     }
   }
