@@ -69,7 +69,7 @@
         this.dayWork = 0;
         this.nightWork = 0;
 
-        if(hourlyWage == null) {
+        if(hourlyWage == null) { /////
           hourlyWage = 8590;
         } else {
           hourlyWage = parseInt(hourlyWage);
